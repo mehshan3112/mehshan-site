@@ -112,26 +112,26 @@
   ],
   "about": {
     "headline": [
-      "Engineering Mindset",
-      "Business Perspective.",
-      "Creative Outlook."
+      "Engineering",
+      "Business",
+      "Creative"
     ],
     "text": "The person behind the portfolio",
     "photos": [
       {
         "image": "/images/about-shelves.jpg",
-        "alt": "Mehshan seated in front of wooden bookshelves",
-        "caption": "Among the shelves"
+        "alt": "Literature",
+        "caption": "Between pages and possibilities."
       },
       {
         "image": "/images/about-banner.jpg",
-        "alt": "Mehshan in a green kurta in front of a hand-painted red and green banner",
-        "caption": "In front of the banner"
+        "alt": "Culture & Creativity",
+        "caption": "Rooted in culture, drawn to expression."
       },
       {
         "image": "/images/about-fist.jpg",
-        "alt": "Close portrait of Mehshan with a raised fist and a watch",
-        "caption": "Eyes on the frame"
+        "alt": "Perspective",
+        "caption": "A little introspection, a lot of curiosity."
       }
     ]
   },
@@ -140,93 +140,75 @@
     "behance": "https://www.behance.net/Mehshan_UL_Islam",
     "items": [
       {
-        "title": "Buddha Jayanti",
-        "kind": "Poster",
-        "link": "https://www.behance.net/gallery/225105925/Buddha-Jayanti-Poster",
-        "image": "/images/design-01.jpg"
-      },
-      {
         "title": "BUTEX Lit Fest 2.0",
         "kind": "Event banner",
         "link": "https://www.behance.net/gallery/225102093/BUTEX-LIT-FEST-20",
-        "image": "/images/design-02.jpg"
+        "image": "/images/45f636225102093.68179e7b35f77.webp"
       },
       {
         "title": "Ahmed Sofa",
         "kind": "Poster",
         "link": "https://www.behance.net/gallery/224564641/Ahmed-Sofa-Poster",
-        "image": "/images/design-03.jpg"
+        "image": "/images/66d741224564641.680d3fb294ad1.jpg"
       },
       {
         "title": "Nirmalendu Goon",
         "kind": "Poster",
         "link": "https://www.behance.net/gallery/224564591/Nirmalendu-Goon-poster",
-        "image": "/images/design-04.jpg"
+        "image": "/images/e7b92d224564591.680d3f47bf909.webp"
       },
       {
         "title": "Mirza Ghalib",
         "kind": "Poster",
         "link": "https://www.behance.net/gallery/194042875/Mirza-Ghalib-Poster",
-        "image": "/images/design-05.jpg"
-      },
-      {
-        "title": "Durga Puja Greetings",
-        "kind": "Poster",
-        "link": "https://www.behance.net/gallery/182932909/Durga-Poster",
-        "image": "/images/design-06.jpg"
+        "image": "/images/e0d8bf194042875.65f59571a3497.webp"
       },
       {
         "title": "Robert Jordan",
         "kind": "Poster",
         "link": "https://www.behance.net/gallery/182521633/Robert-Jordan-Poster",
-        "image": "/images/design-07.jpg"
+        "image": "/images/7877a1182521633.652f422d83bca.webp"
       },
       {
         "title": "রুদ্র মুহম্মদ শহিদুল্লাহ",
         "kind": "Poster",
         "link": "https://www.behance.net/gallery/182521501/-Poster",
-        "image": "/images/design-08.jpg"
+        "image": "/images/27a368182521501.652f415daa016.webp"
       },
       {
         "title": "Friedrich Nietzsche",
         "kind": "Poster",
         "link": "https://www.behance.net/gallery/182521431/Friedrich-Nietzsche-Poster",
-        "image": "/images/design-09.jpg"
+        "image": "/images/d10c8b182521431.652f40de77c7b.webp"
       },
       {
         "title": "নব শব্দের গান",
         "kind": "Event promotion",
         "link": "https://www.behance.net/gallery/180084257/-Follow-Up",
-        "image": "/images/design-10.jpg"
-      },
-      {
-        "title": "Janmashtami",
-        "kind": "Poster",
-        "link": "https://www.behance.net/gallery/179384125/Janmashtami-Poster",
-        "image": "/images/design-11.jpg"
-      },
-      {
-        "title": "15 August",
-        "kind": "Poster",
-        "link": "https://www.behance.net/gallery/179080673/15-August-Poster",
-        "image": "/images/design-12.jpg"
+        "image": "/images/51d67b180084257.65046ae2573a1.webp"
       },
       {
         "title": "বাগিচায় বুলবুলি",
         "kind": "Poster",
         "link": "https://www.behance.net/Mehshan_UL_Islam",
-        "image": "/images/design-13.jpg"
+        "image": "/images/f29706179072963.64f327b6a135b.webp"
       },
       {
         "title": "এস এম সুলতান",
         "kind": "Poster",
         "link": "https://www.behance.net/Mehshan_UL_Islam",
-        "image": "/images/design-14.jpg"
+        "image": "/images/719057177370937.64d4e131bfc06.png"
+      },
+      {
+        "link": "https://www.behance.net/gallery/174639839/Franz-Kafka-Poster",
+        "kind": "poster",
+        "title": " Franz Kafka",
+        "image": "/images/46f167174639839.64a5c4330f178.webp"
       }
     ]
   },
   "dye_caption": "Colour by the ton.",
-  "objective": "A Textile Engineering graduate from BUTEX, seeking roles in operations, supply chain, marketing, merchandising, or other business functions where technical knowledge and manufacturing experience improve efficiency.",
+  "objective": "A BUTEX graduate interested in the intersection of technology, business and creativity. My professional interests are evolving towards marketing, supply chain management, operations and business strategy. I enjoy understanding how industries function, how businesses create value and how better decisions can improve processes and outcomes. Outside the professional sphere, I'm drawn to literature, visual arts, design and cultural initiatives. I believe curiosity should never be confined to one discipline, and neither should a career.",
   "project": {
     "title": "Data-driven approach to techpack automation",
     "text": "Developed methods to verify grading rules, ensuring accuracy and consistency across production specifications."
