@@ -14,7 +14,7 @@ collections:
     files:
       - name: content
         label: All site content
-        file: content/site.json
+        file: site.json
         format: json
         fields:
           - label: Top of the page (hero)

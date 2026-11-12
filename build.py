@@ -1,7 +1,12 @@
 """Builds the static site: reads content/site.json, writes dist/. Pure standard library."""
 import html, json, re, shutil, pathlib
 R = pathlib.Path(__file__).parent
-c = json.load(open(R/"content/site.json", encoding="utf-8"))
+def find(*names):
+    for n in names:
+        if (R/n).exists(): return R/n
+    raise SystemExit("MISSING FILE (looked for: " + ", ".join(names) + ") - upload it to the top level of the repository")
+SITE = find("content/site.json", "site.json")
+c = json.load(open(SITE, encoding="utf-8"))
 e = lambda s: html.escape(str(s), quote=True)
 def f(s): return re.sub(r"\*(.+?)\*", r"<i>\1</i>", e(s))
 def img(p): return e(p) if p.startswith(("http","/")) else "/"+e(p)
@@ -12,7 +17,7 @@ def me():
     return f'<section id="me"><p class="big">{"<br>".join(e(x) for x in a["headline"])}</p><p class="sub" style="margin-top:24px">{e(a["text"])}</p><div class="scat">{figs}</div></section>'
 
 def exp():
-    dye = open(R/"dye.html", encoding="utf-8").read().replace("Colour by the ton.", e(c["dye_caption"]))
+    dye = open(find("dye.html"), encoding="utf-8").read().replace("Colour by the ton.", e(c["dye_caption"]))
     rows = ""
     for x in c["experience"]:
         w = e(x["dates"]) + (f'<br>{e(x["place"])}' if x.get("place") else "")
@@ -46,7 +51,7 @@ def design():
 
 h, ct = c["hero"], c["contact"]
 links = "".join(f'<a href="{e(ct[k])}">{n}</a>' for k, n in [("linkedin","LinkedIn"),("behance","Behance"),("facebook","Facebook")])
-page = open(R/"template.html", encoding="utf-8").read()
+page = open(find("template.html"), encoding="utf-8").read()
 for k, v in {"H1": e(h["title"]), "SUB": e(h["subtitle"]), "INTRO": e(h["intro"]), "HERO_IMG": img(h["image"]), "HERO_ALT": e(h["image_alt"]),
              "ME": me(), "EXP": exp(), "EDU": edu(), "SKILLS": skills(), "DESIGN": design(), "EMAIL": e(ct["email"]), "LINKS": links,
              "QUOTE": f'“{e(ct["quote"])}”<span>{e(ct["quote_author"])}</span>'}.items():
@@ -55,7 +60,17 @@ out = R/"dist"
 if out.exists(): shutil.rmtree(out)
 out.mkdir()
 (out/"index.html").write_text(page, encoding="utf-8")
-shutil.copytree(R/"images", out/"images")
-shutil.copytree(R/"admin", out/"admin")
-shutil.copytree(R/"content", out/"content")
+# images: from an images/ folder and/or loose .jpg/.png files at the top level
+(out/"images").mkdir()
+if (R/"images").is_dir():
+    for p in (R/"images").iterdir():
+        if p.is_file(): shutil.copy(p, out/"images"/p.name)
+for p in R.glob("*"):
+    if p.is_file() and p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp"):
+        shutil.copy(p, out/"images"/p.name)
+# editor page: admin/ folder, or loose index.html + config.yml at the top level
+(out/"admin").mkdir()
+shutil.copy(find("admin/index.html", "index.html"), out/"admin"/"index.html")
+shutil.copy(find("admin/config.yml", "config.yml"), out/"admin"/"config.yml")
+print("images copied:", len(list((out/"images").iterdir())))
 print("built", len(page), "bytes")
