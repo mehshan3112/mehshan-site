@@ -1,246 +1,246 @@
 {
- "hero": {
-  "title": "Mehshan",
-  "subtitle": "S.A.S Mehshan-UL-Islam, textile engineer and graphic designer from Dhaka",
-  "intro": "I ran a 20-ton knit dyeing floor and raised daily output by up to 45%. Outside the mill, I design posters and event identities for Bangladesh’s literary community.",
-  "image": "/images/hero.jpg",
-  "image_alt": "Black and white portrait of Mehshan in a checked shirt"
- },
- "about": {
-  "headline": [
-   "Textile.",
-   "Literature.",
-   "Design."
+  "contact": {
+    "email": "mehshanulislam@gmail.com",
+    "linkedin": "https://linkedin.com/in/thisismehshan",
+    "behance": "https://www.behance.net/Mehshan_UL_Islam",
+    "facebook": "https://facebook.com/thisismehshan",
+    "quote": "One must imagine Sisyphus happy.",
+    "quote_author": "Albert Camus, The Myth of Sisyphus"
+  },
+  "skills": [
+    {
+      "title": "Computer",
+      "items": [
+        "Microsoft Word, Excel, PowerPoint",
+        "Adobe Illustrator, Photoshop"
+      ]
+    },
+    {
+      "title": "Operations and analysis",
+      "items": [
+        "Production tracking",
+        "Data-driven process optimization",
+        "Quality control",
+        "Workflow coordination"
+      ]
+    },
+    {
+      "title": "Management and leadership",
+      "items": [
+        "Cross-functional coordination",
+        "Team building",
+        "Operational planning",
+        "Organizational and event leadership",
+        "Communication"
+      ]
+    },
+    {
+      "title": "Languages",
+      "items": [
+        "Bengali: native",
+        "English: professional"
+      ]
+    }
   ],
-  "text": "The person behind the portfolio: a dye house engineer who spends the rest of his time among books, stages, and posters.",
-  "photos": [
-   {
-    "image": "/images/about-shelves.jpg",
-    "alt": "Mehshan seated in front of wooden bookshelves",
-    "caption": "Among the shelves"
-   },
-   {
-    "image": "/images/about-banner.jpg",
-    "alt": "Mehshan in a green kurta in front of a hand-painted red and green banner",
-    "caption": "In front of the banner"
-   },
-   {
-    "image": "/images/about-fist.jpg",
-    "alt": "Close portrait of Mehshan with a raised fist and a watch",
-    "caption": "Eyes on the frame"
-   }
-  ]
- },
- "objective": "A Textile Engineering graduate from BUTEX, seeking roles in operations, supply chain, marketing, merchandising, or other business functions where technical knowledge and manufacturing experience improve efficiency.",
- "dye_caption": "Colour by the ton.",
- "experience": [
-  {
-   "role": "Executive, Dyeing",
-   "org": "Alliance Knit Composite Ltd.",
-   "dates": "11/2024 – 12/2025",
-   "place": "Ashulia, Savar, Dhaka",
-   "show_dye_machine": true,
-   "bullets": [
-    "Monitored daily production operations across a 20-ton dyeing floor, tracking workflow progress to ensure timely completion.",
-    "Increased daily production output by up to 45% by optimizing process standards, reducing line downtime, and systematically addressing operational inconsistencies.",
-    "Prepared detailed production reports and communicated key efficiency trends to management to support data-driven decisions."
-   ]
+  "education": [
+    {
+      "degree": "B.Sc. in Textile Engineering",
+      "school": "Bangladesh University of Textiles",
+      "dates": "2019 – 2024"
+    },
+    {
+      "degree": "HSC, Science",
+      "school": "Dhaka Residential Model College",
+      "dates": "2016 – 2018"
+    },
+    {
+      "degree": "SSC, Science",
+      "school": "Monipur High School",
+      "dates": "2014 – 2016"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Executive, Dyeing",
+      "org": "Alliance Knit Composite Ltd.",
+      "dates": "11/2024 – 12/2025",
+      "place": "Ashulia, Savar, Dhaka",
+      "show_dye_machine": true,
+      "bullets": [
+        "Monitored daily production operations across a 20-ton dyeing floor, tracking workflow progress to ensure timely completion.",
+        "Increased daily production output by up to 45% by optimizing process standards, reducing line downtime, and systematically addressing operational inconsistencies.",
+        "Prepared detailed production reports and communicated key efficiency trends to management to support data-driven decisions."
+      ]
+    },
+    {
+      "role": "Intern",
+      "org": "MASCO Industries Ltd.",
+      "dates": "01/2024 – 03/2024",
+      "place": "Gazipura, Tongi, Dhaka",
+      "bullets": [
+        "Observed and studied knitting, dyeing, sewing, and cutting processes and monitored end-to-end workflow."
+      ]
+    },
+    {
+      "role": "President",
+      "org": "BUTEX Shahitya Sangsad",
+      "dates": "03/2024 – 01/2025",
+      "bullets": [
+        "Led the university literary society and coordinated activities across literature, culture, and creative expression.",
+        "Planned and led Lit Fest 2.0, Scene-Sinarir Ekdin, Shobdobindu Literary Competition, Him Utsab, a Film Festival, and the fourth stage performance of the theatre production *Onahuto*."
+      ],
+      "link_text": "BUTEX Shahitya Sangsad on Facebook",
+      "link_url": "https://www.facebook.com/ButexSSOfficial/"
+    },
+    {
+      "role": "Vice-President",
+      "org": "BUTEX Youth Development Club",
+      "dates": "02/2024 – 01/2025",
+      "bullets": [
+        "Helped organize the National Textile Olympiad, an event with 500+ participants.",
+        "Coordinated club members and event activities to support smooth execution."
+      ]
+    },
+    {
+      "role": "Co-Founder",
+      "org": "DRMC IT Club",
+      "dates": "01/2017 – 03/2019",
+      "bullets": [
+        "Co-founded a student-led club promoting information technology, and organized technology workshops to help students build technical skills."
+      ]
+    }
+  ],
+  "about": {
+    "headline": [
+      "Engineering Mindset",
+      "Business Perspective.",
+      "Creative Outlook."
+    ],
+    "text": "The person behind the portfolio",
+    "photos": [
+      {
+        "image": "/images/about-shelves.jpg",
+        "alt": "Mehshan seated in front of wooden bookshelves",
+        "caption": "Among the shelves"
+      },
+      {
+        "image": "/images/about-banner.jpg",
+        "alt": "Mehshan in a green kurta in front of a hand-painted red and green banner",
+        "caption": "In front of the banner"
+      },
+      {
+        "image": "/images/about-fist.jpg",
+        "alt": "Close portrait of Mehshan with a raised fist and a watch",
+        "caption": "Eyes on the frame"
+      }
+    ]
   },
-  {
-   "role": "Intern",
-   "org": "MASCO Industries Ltd.",
-   "dates": "01/2024 – 03/2024",
-   "place": "Gazipura, Tongi, Dhaka",
-   "bullets": [
-    "Observed and studied knitting, dyeing, sewing, and cutting processes and monitored end-to-end workflow."
-   ]
+  "designs": {
+    "intro": "Posters and event designs made for BUTEX Shahitya Sangsad and other student communities. Hover a title to preview it, click to open it large.",
+    "behance": "https://www.behance.net/Mehshan_UL_Islam",
+    "items": [
+      {
+        "title": "Buddha Jayanti",
+        "kind": "Poster",
+        "link": "https://www.behance.net/gallery/225105925/Buddha-Jayanti-Poster",
+        "image": "/images/design-01.jpg"
+      },
+      {
+        "title": "BUTEX Lit Fest 2.0",
+        "kind": "Event banner",
+        "link": "https://www.behance.net/gallery/225102093/BUTEX-LIT-FEST-20",
+        "image": "/images/design-02.jpg"
+      },
+      {
+        "title": "Ahmed Sofa",
+        "kind": "Poster",
+        "link": "https://www.behance.net/gallery/224564641/Ahmed-Sofa-Poster",
+        "image": "/images/design-03.jpg"
+      },
+      {
+        "title": "Nirmalendu Goon",
+        "kind": "Poster",
+        "link": "https://www.behance.net/gallery/224564591/Nirmalendu-Goon-poster",
+        "image": "/images/design-04.jpg"
+      },
+      {
+        "title": "Mirza Ghalib",
+        "kind": "Poster",
+        "link": "https://www.behance.net/gallery/194042875/Mirza-Ghalib-Poster",
+        "image": "/images/design-05.jpg"
+      },
+      {
+        "title": "Durga Puja Greetings",
+        "kind": "Poster",
+        "link": "https://www.behance.net/gallery/182932909/Durga-Poster",
+        "image": "/images/design-06.jpg"
+      },
+      {
+        "title": "Robert Jordan",
+        "kind": "Poster",
+        "link": "https://www.behance.net/gallery/182521633/Robert-Jordan-Poster",
+        "image": "/images/design-07.jpg"
+      },
+      {
+        "title": "রুদ্র মুহম্মদ শহিদুল্লাহ",
+        "kind": "Poster",
+        "link": "https://www.behance.net/gallery/182521501/-Poster",
+        "image": "/images/design-08.jpg"
+      },
+      {
+        "title": "Friedrich Nietzsche",
+        "kind": "Poster",
+        "link": "https://www.behance.net/gallery/182521431/Friedrich-Nietzsche-Poster",
+        "image": "/images/design-09.jpg"
+      },
+      {
+        "title": "নব শব্দের গান",
+        "kind": "Event promotion",
+        "link": "https://www.behance.net/gallery/180084257/-Follow-Up",
+        "image": "/images/design-10.jpg"
+      },
+      {
+        "title": "Janmashtami",
+        "kind": "Poster",
+        "link": "https://www.behance.net/gallery/179384125/Janmashtami-Poster",
+        "image": "/images/design-11.jpg"
+      },
+      {
+        "title": "15 August",
+        "kind": "Poster",
+        "link": "https://www.behance.net/gallery/179080673/15-August-Poster",
+        "image": "/images/design-12.jpg"
+      },
+      {
+        "title": "বাগিচায় বুলবুলি",
+        "kind": "Poster",
+        "link": "https://www.behance.net/Mehshan_UL_Islam",
+        "image": "/images/design-13.jpg"
+      },
+      {
+        "title": "এস এম সুলতান",
+        "kind": "Poster",
+        "link": "https://www.behance.net/Mehshan_UL_Islam",
+        "image": "/images/design-14.jpg"
+      }
+    ]
   },
-  {
-   "role": "President",
-   "org": "BUTEX Shahitya Sangsad",
-   "dates": "03/2024 – 01/2025",
-   "bullets": [
-    "Led the university literary society and coordinated activities across literature, culture, and creative expression.",
-    "Planned and led Lit Fest 2.0, Scene-Sinarir Ekdin, Shobdobindu Literary Competition, Him Utsab, a Film Festival, and the fourth stage performance of the theatre production *Onahuto*."
-   ],
-   "link_text": "BUTEX Shahitya Sangsad on Facebook",
-   "link_url": "https://www.facebook.com/ButexSSOfficial/"
+  "dye_caption": "Colour by the ton.",
+  "objective": "A Textile Engineering graduate from BUTEX, seeking roles in operations, supply chain, marketing, merchandising, or other business functions where technical knowledge and manufacturing experience improve efficiency.",
+  "project": {
+    "title": "Data-driven approach to techpack automation",
+    "text": "Developed methods to verify grading rules, ensuring accuracy and consistency across production specifications."
   },
-  {
-   "role": "Vice-President",
-   "org": "BUTEX Youth Development Club",
-   "dates": "02/2024 – 01/2025",
-   "bullets": [
-    "Helped organize the National Textile Olympiad, an event with 500+ participants.",
-    "Coordinated club members and event activities to support smooth execution."
-   ]
-  },
-  {
-   "role": "Co-Founder",
-   "org": "DRMC IT Club",
-   "dates": "01/2017 – 03/2019",
-   "bullets": [
-    "Co-founded a student-led club promoting information technology, and organized technology workshops to help students build technical skills."
-   ]
+  "training": [
+    "Basics of Lean Thinking and Six Sigma in Supply Chain, Cambridge International Qualifications, UK",
+    "Customize Training Program on CNC Machine Operation, Tool and Technology Institute, BITAK",
+    "Sustainable Chemicals and Environmental Management in Textiles Industry, Deutsche Gesellschaft für Internationale Zusammenarbeit"
+  ],
+  "hero": {
+    "title": "Mehshan",
+    "subtitle": "S.A.S Mehshan-UL-Islam, An engineer by education, a curious mind by nature. From Dhaka",
+    "intro": "A BUTEX graduate interested in the intersection of technology, business and creativity. My professional interests are evolving towards marketing, supply chain management, operations and business strategy.\nI enjoy understanding how industries function, how businesses create value and how better decisions can improve processes and outcomes.\nOutside the professional sphere, I'm drawn to literature, visual arts, design and cultural initiatives. I believe curiosity should never be confined to one discipline, and neither should a career.",
+    "image": "/images/hero.jpg",
+    "image_alt": "Black and white portrait of Mehshan in a checked shirt"
   }
- ],
- "education": [
-  {
-   "degree": "B.Sc. in Textile Engineering",
-   "school": "Bangladesh University of Textiles",
-   "dates": "2019 – 2024"
-  },
-  {
-   "degree": "HSC, Science",
-   "school": "Dhaka Residential Model College",
-   "dates": "2016 – 2018"
-  },
-  {
-   "degree": "SSC, Science",
-   "school": "Monipur High School",
-   "dates": "2014 – 2016"
-  }
- ],
- "skills": [
-  {
-   "title": "Computer",
-   "items": [
-    "Microsoft Word, Excel, PowerPoint",
-    "Adobe Illustrator, Photoshop"
-   ]
-  },
-  {
-   "title": "Operations and analysis",
-   "items": [
-    "Production tracking",
-    "Data-driven process optimization",
-    "Quality control",
-    "Workflow coordination"
-   ]
-  },
-  {
-   "title": "Management and leadership",
-   "items": [
-    "Cross-functional coordination",
-    "Team building",
-    "Operational planning",
-    "Organizational and event leadership",
-    "Communication"
-   ]
-  },
-  {
-   "title": "Languages",
-   "items": [
-    "Bengali: native",
-    "English: professional"
-   ]
-  }
- ],
- "training": [
-  "Basics of Lean Thinking and Six Sigma in Supply Chain, Cambridge International Qualifications, UK",
-  "Customize Training Program on CNC Machine Operation, Tool and Technology Institute, BITAK",
-  "Sustainable Chemicals and Environmental Management in Textiles Industry, Deutsche Gesellschaft für Internationale Zusammenarbeit"
- ],
- "project": {
-  "title": "Data-driven approach to techpack automation",
-  "text": "Developed methods to verify grading rules, ensuring accuracy and consistency across production specifications."
- },
- "designs": {
-  "intro": "Posters and event designs made for BUTEX Shahitya Sangsad and other student communities. Hover a title to preview it, click to open it large.",
-  "behance": "https://www.behance.net/Mehshan_UL_Islam",
-  "items": [
-   {
-    "title": "Buddha Jayanti",
-    "kind": "Poster",
-    "link": "https://www.behance.net/gallery/225105925/Buddha-Jayanti-Poster",
-    "image": "/images/design-01.jpg"
-   },
-   {
-    "title": "BUTEX Lit Fest 2.0",
-    "kind": "Event banner",
-    "link": "https://www.behance.net/gallery/225102093/BUTEX-LIT-FEST-20",
-    "image": "/images/design-02.jpg"
-   },
-   {
-    "title": "Ahmed Sofa",
-    "kind": "Poster",
-    "link": "https://www.behance.net/gallery/224564641/Ahmed-Sofa-Poster",
-    "image": "/images/design-03.jpg"
-   },
-   {
-    "title": "Nirmalendu Goon",
-    "kind": "Poster",
-    "link": "https://www.behance.net/gallery/224564591/Nirmalendu-Goon-poster",
-    "image": "/images/design-04.jpg"
-   },
-   {
-    "title": "Mirza Ghalib",
-    "kind": "Poster",
-    "link": "https://www.behance.net/gallery/194042875/Mirza-Ghalib-Poster",
-    "image": "/images/design-05.jpg"
-   },
-   {
-    "title": "Durga Puja Greetings",
-    "kind": "Poster",
-    "link": "https://www.behance.net/gallery/182932909/Durga-Poster",
-    "image": "/images/design-06.jpg"
-   },
-   {
-    "title": "Robert Jordan",
-    "kind": "Poster",
-    "link": "https://www.behance.net/gallery/182521633/Robert-Jordan-Poster",
-    "image": "/images/design-07.jpg"
-   },
-   {
-    "title": "রুদ্র মুহম্মদ শহিদুল্লাহ",
-    "kind": "Poster",
-    "link": "https://www.behance.net/gallery/182521501/-Poster",
-    "image": "/images/design-08.jpg"
-   },
-   {
-    "title": "Friedrich Nietzsche",
-    "kind": "Poster",
-    "link": "https://www.behance.net/gallery/182521431/Friedrich-Nietzsche-Poster",
-    "image": "/images/design-09.jpg"
-   },
-   {
-    "title": "নব শব্দের গান",
-    "kind": "Event promotion",
-    "link": "https://www.behance.net/gallery/180084257/-Follow-Up",
-    "image": "/images/design-10.jpg"
-   },
-   {
-    "title": "Janmashtami",
-    "kind": "Poster",
-    "link": "https://www.behance.net/gallery/179384125/Janmashtami-Poster",
-    "image": "/images/design-11.jpg"
-   },
-   {
-    "title": "15 August",
-    "kind": "Poster",
-    "link": "https://www.behance.net/gallery/179080673/15-August-Poster",
-    "image": "/images/design-12.jpg"
-   },
-   {
-    "title": "বাগিচায় বুলবুলি",
-    "kind": "Poster",
-    "link": "https://www.behance.net/Mehshan_UL_Islam",
-    "image": "/images/design-13.jpg"
-   },
-   {
-    "title": "এস এম সুলতান",
-    "kind": "Poster",
-    "link": "https://www.behance.net/Mehshan_UL_Islam",
-    "image": "/images/design-14.jpg"
-   }
-  ]
- },
- "contact": {
-  "email": "mehshanulislam@gmail.com",
-  "linkedin": "https://linkedin.com/in/thisismehshan",
-  "behance": "https://www.behance.net/Mehshan_UL_Islam",
-  "facebook": "https://facebook.com/thisismehshan",
-  "quote": "One must imagine Sisyphus happy.",
-  "quote_author": "Albert Camus, The Myth of Sisyphus"
- }
 }
