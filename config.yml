@@ -1,0 +1,111 @@
+# Decap CMS: the login-protected editor at /admin
+backend:
+  name: github
+  repo: mehshan3112/mehshan-site
+  branch: main
+
+media_folder: images
+public_folder: /images
+locale: en
+
+collections:
+  - name: site
+    label: Website
+    files:
+      - name: content
+        label: All site content
+        file: content/site.json
+        format: json
+        fields:
+          - label: Top of the page (hero)
+            name: hero
+            widget: object
+            fields:
+              - {label: Big name, name: title, widget: string}
+              - {label: Line under the name, name: subtitle, widget: string}
+              - {label: Intro text, name: intro, widget: text}
+              - {label: Portrait photo, name: image, widget: image}
+              - {label: Portrait description (for screen readers), name: image_alt, widget: string}
+          - label: About section
+            name: about
+            widget: object
+            fields:
+              - label: Big words (one per line)
+                name: headline
+                widget: list
+                field: {label: Word, name: w, widget: string}
+              - {label: Short text, name: text, widget: text}
+              - label: Photos
+                name: photos
+                widget: list
+                fields:
+                  - {label: Photo, name: image, widget: image}
+                  - {label: Description (for screen readers), name: alt, widget: string}
+                  - {label: Caption, name: caption, widget: string}
+          - {label: Career objective (above experience), name: objective, widget: text}
+          - {label: Dyeing machine caption, name: dye_caption, widget: string}
+          - label: Experience and leadership
+            name: experience
+            widget: list
+            fields:
+              - {label: Role, name: role, widget: string}
+              - {label: Organisation, name: org, widget: string}
+              - {label: Dates, name: dates, widget: string}
+              - {label: Place, name: place, widget: string, required: false}
+              - {label: Show the dyeing machine animation here, name: show_dye_machine, widget: boolean, default: false, required: false}
+              - label: Bullet points (use *word* for italics)
+                name: bullets
+                widget: list
+                field: {label: Bullet, name: b, widget: text}
+              - {label: Link text, name: link_text, widget: string, required: false}
+              - {label: Link address, name: link_url, widget: string, required: false}
+          - label: Education
+            name: education
+            widget: list
+            fields:
+              - {label: Degree, name: degree, widget: string}
+              - {label: School, name: school, widget: string}
+              - {label: Dates, name: dates, widget: string}
+          - label: Skills
+            name: skills
+            widget: list
+            fields:
+              - {label: Group title, name: title, widget: string}
+              - label: Items
+                name: items
+                widget: list
+                field: {label: Item, name: i, widget: string}
+          - label: Training programs
+            name: training
+            widget: list
+            field: {label: Program, name: p, widget: string}
+          - label: Project work
+            name: project
+            widget: object
+            fields:
+              - {label: Title, name: title, widget: string}
+              - {label: Text, name: text, widget: text}
+          - label: Design section
+            name: designs
+            widget: object
+            fields:
+              - {label: Intro text, name: intro, widget: text}
+              - {label: Behance profile link, name: behance, widget: string}
+              - label: Designs (drag to reorder)
+                name: items
+                widget: list
+                fields:
+                  - {label: Title, name: title, widget: string}
+                  - {label: Type (Poster, Event banner...), name: kind, widget: string}
+                  - {label: Behance project link, name: link, widget: string}
+                  - {label: Image, name: image, widget: image}
+          - label: Contact
+            name: contact
+            widget: object
+            fields:
+              - {label: Email, name: email, widget: string}
+              - {label: LinkedIn link, name: linkedin, widget: string}
+              - {label: Behance link, name: behance, widget: string}
+              - {label: Facebook link, name: facebook, widget: string}
+              - {label: Quote at the bottom, name: quote, widget: string}
+              - {label: Quote author, name: quote_author, widget: string}
