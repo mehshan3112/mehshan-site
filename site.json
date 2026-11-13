@@ -75,16 +75,17 @@
       "logo": "/images/artboard-1.png"
     },
     {
-      "role": "Intern",
       "org": "MASCO Industries Ltd.",
+      "animation": "supply chain",
       "dates": "01/2024 – 03/2024",
       "place": "Gazipura, Tongi, Dhaka",
+      "logo": "/images/artboard-3.png",
+      "initials": "MASCO",
       "bullets": [
         "Observed and studied knitting, dyeing, sewing, and cutting processes and monitored end-to-end workflow."
       ],
-      "initials": "MASCO",
-      "logo": "/images/artboard-3.png",
-      "show_dye_machine": true
+      "role": "Intern",
+      "show_dye_machine": false
     }
   ],
   "about": {
