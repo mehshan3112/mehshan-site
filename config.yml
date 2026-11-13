@@ -4,7 +4,7 @@ backend:
   repo: mehshan3112/mehshan-site
   branch: main
   base_url: https://mehshan.pages.dev   # your Cloudflare address, no slash at the end
-  auth_endpoint: api/auth
+  auth_endpoint: auth
 
 media_folder: images
 public_folder: /images
