@@ -135,6 +135,18 @@ figcaption span{color:var(--mute)}
 .dye .bub{fill:rgba(255,255,255,.85);animation:bub 2.1s ease-in infinite}
 .dye .eye{transform-box:fill-box;transform-origin:center;animation:blink 4s infinite}
 .dye .mc{animation:bob .7s ease-in-out infinite}
+.dye .route{fill:none;stroke:var(--mute);stroke-width:3;stroke-dasharray:12 8;animation:road .8s linear infinite}
+.dye .nl{fill:none;stroke:var(--line);stroke-width:2}
+.dye .nd{fill:var(--line);animation:nd 4.5s ease-in-out infinite}
+.dye .aw{fill:#d4a94f}.dye .sh{fill:#a3121e}.dye .gd{fill:#d4a94f}
+.dye .bx{fill:#d4a94f;stroke:#0e0709;stroke-width:2;transform-box:fill-box;transform-origin:center bottom;animation:bx 6s ease-out infinite;opacity:0}
+.dye .trk{animation:drive 6s ease-in-out infinite}
+.dye .tb{animation:bob .6s ease-in-out infinite}
+.dye .wh{transform-box:fill-box;transform-origin:center;animation:spin .7s linear infinite}
+@keyframes road{to{stroke-dashoffset:-20}}
+@keyframes nd{0%,100%{fill:var(--line)}12%,30%{fill:#d4a94f}}
+@keyframes drive{0%{transform:translateX(0);opacity:0}6%{opacity:1}68%{transform:translateX(66px);opacity:1}78%,100%{transform:translateX(66px);opacity:0}}
+@keyframes bx{0%,66%{opacity:0;transform:scale(0)}74%{opacity:1;transform:scale(1.15)}80%,92%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes flow{to{stroke-dashoffset:-20}}
 @keyframes dye{0%,100%{stroke:#a3121e}33%{stroke:#3b6fb6}66%{stroke:#d4a94f}}
@@ -157,7 +169,8 @@ figcaption span{color:var(--mute)}
 .act li{margin-bottom:6px}
 .aph{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,320px));justify-content:start;gap:14px;margin-top:22px}
 .aph figure{margin:0}
-.aph img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px}
+.aph img{display:block;width:100%;aspect-ratio:4/3;object-fit:contain;background:var(--bg2);border-radius:4px}
+.aph img.crop{object-fit:cover}
 .aph figcaption{padding:6px 2px 0;font-size:.88rem;color:var(--mute)}
 dialog{border:0;padding:0;background:transparent;max-width:min(92vw,980px);color:var(--ink)}
 dialog::backdrop{background:rgba(10,3,4,.9)}

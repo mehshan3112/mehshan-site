@@ -47,6 +47,7 @@ collections:
                   - {label: Caption, name: caption, widget: string}
           - {label: Career objective (above experience), name: objective, widget: text}
           - {label: Dyeing machine caption, name: dye_caption, widget: string}
+          - {label: Supply chain animation caption, name: supply_caption, widget: string, required: false}
           - label: Experience and leadership
             name: experience
             widget: list
@@ -57,7 +58,8 @@ collections:
               - {label: Place, name: place, widget: string, required: false}
               - {label: Letters shown if there is no logo, name: initials, widget: string, required: false}
               - {label: Logo, name: logo, widget: image, required: false}
-              - {label: Show the dyeing machine animation here, name: show_dye_machine, widget: boolean, default: false, required: false}
+              - {label: Show the dyeing machine animation here (old setting), name: show_dye_machine, widget: boolean, default: false, required: false}
+              - {label: Animation beside this entry (overrides the old setting), name: animation, widget: select, options: ["dyeing machine", "supply chain", "none"], required: false}
               - label: Bullet points (use *word* for italics)
                 name: bullets
                 widget: list
@@ -86,6 +88,7 @@ collections:
                 fields:
                   - {label: Photo, name: image, widget: image}
                   - {label: Caption, name: caption, widget: string, required: false}
+                  - {label: Picture fit (whole picture shows everything, crop to fill fills the box), name: fit, widget: select, options: ["whole picture", "crop to fill"], required: false}
           - label: Education
             name: education
             widget: list
