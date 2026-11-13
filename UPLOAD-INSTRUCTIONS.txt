@@ -1,0 +1,79 @@
+MEHSHAN PORTFOLIO — CLOUDFLARE PAGES DECAP CMS OAUTH
+=====================================================
+
+This package adds the missing GitHub OAuth endpoints to the existing
+mehshan-site repository. It does not replace the portfolio or the CMS schema.
+
+FILES TO UPLOAD
+---------------
+Upload the entire "functions" folder to the ROOT of the GitHub repository,
+at the same level as:
+  build.py
+  config.yml
+  index.html
+  template.html
+  site.json
+
+The resulting paths must be:
+  functions/api/auth.js
+  functions/api/callback.js
+
+Do NOT put functions inside dist/, admin/, or images/.
+
+EXISTING CMS CONFIG
+-------------------
+The current repository config.yml already has:
+  backend:
+    name: github
+    repo: mehshan3112/mehshan-site
+    branch: main
+    base_url: https://mehshan.pages.dev
+    auth_endpoint: api/auth
+
+Keep the rest of config.yml unchanged. The CMS config is copied into
+dist/admin/config.yml by the existing build.py.
+
+CLOUDFLARE VARIABLES
+--------------------
+In the Cloudflare Pages project "mehshan", keep these project variables:
+  GITHUB_CLIENT_ID       (Text)
+  GITHUB_CLIENT_SECRET   (Secret)
+
+Make sure both are available to the Production environment. After changing
+environment variables, trigger a new deployment.
+
+GITHUB OAUTH APP
+----------------
+For the OAuth App used by this Cloudflare site, set:
+  Homepage URL:
+    https://mehshan.pages.dev
+
+  Authorization callback URL:
+    https://mehshan.pages.dev/api/callback
+
+The callback URL must match the redirect_uri used by these functions.
+Do not change the callback URL of a separate OAuth app still used by Netlify.
+
+DEPLOYMENT
+----------
+1. Commit/upload the functions folder to the main branch.
+2. Wait for the Cloudflare Pages Git deployment to complete.
+3. Test:
+     https://mehshan.pages.dev/api/auth
+   It should redirect to GitHub, not show "client_id=undefined".
+4. Then open:
+     https://mehshan.pages.dev/admin/
+
+SECURITY NOTES
+--------------
+- The GitHub Client Secret stays in Cloudflare as an encrypted Secret.
+- Never put the Client Secret in config.yml or JavaScript served to browsers.
+- The OAuth flow uses a short-lived state cookie to protect against CSRF.
+- The callback checks that the signed-in GitHub account is mehshan3112
+  and confirms push permission on mehshan3112/mehshan-site.
+- The requested OAuth scopes are public_repo and read:user because the
+  inspected repository is public. If you later make the repository private,
+  update the scope to repo and review the broader permission grant.
+
+If you later change the production domain, update SITE_ORIGIN in both
+JavaScript files and the matching OAuth App callback URL.
