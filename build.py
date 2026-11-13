@@ -70,7 +70,7 @@ def design():
 h, ct = c["hero"], c["contact"]
 links = "".join(f'<a href="{e(ct[k])}">{n}</a>' for k, n in [("linkedin","LinkedIn"),("behance","Behance"),("facebook","Facebook")])
 page = open(find("template.html"), encoding="utf-8").read()
-for k, v in {"H1": e(h["title"]), "SUB": e(h["subtitle"]), "INTRO": e(h["intro"]), "HERO_IMG": img(h["image"]), "HERO_ALT": e(h["image_alt"]),
+for k, v in {"H1": " ".join(f'<span class="nw">{e(w)}</span>' for w in h["title"].split()), "SUB": e(h["subtitle"]), "INTRO": e(h["intro"]), "HERO_IMG": img(h["image"]), "HERO_ALT": e(h["image_alt"]),
              "ME": me(), "ACT": act(), "SITE_URL": e(c.get("site_url", "").rstrip("/")), "EXP": exp(), "EDU": edu(), "SKILLS": skills(), "DESIGN": design(), "EMAIL": e(ct["email"]), "LINKS": links,
              "QUOTE": f'“{e(ct["quote"])}”<span>{e(ct["quote_author"])}</span>'}.items():
     page = page.replace(f"[[{k}]]", v)
