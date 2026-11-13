@@ -3,6 +3,8 @@ backend:
   name: github
   repo: mehshan3112/mehshan-site
   branch: main
+  base_url: https://mehshan.pages.dev   # your Cloudflare address, no slash at the end
+  auth_endpoint: auth
 
 media_folder: images
 public_folder: /images
@@ -17,6 +19,7 @@ collections:
         file: site.json
         format: json
         fields:
+          - {label: Website address (no slash at the end), name: site_url, widget: string}
           - label: Top of the page (hero)
             name: hero
             widget: object
@@ -52,6 +55,8 @@ collections:
               - {label: Organisation, name: org, widget: string}
               - {label: Dates, name: dates, widget: string}
               - {label: Place, name: place, widget: string, required: false}
+              - {label: Letters shown if there is no logo, name: initials, widget: string, required: false}
+              - {label: Logo, name: logo, widget: image, required: false}
               - {label: Show the dyeing machine animation here, name: show_dye_machine, widget: boolean, default: false, required: false}
               - label: Bullet points (use *word* for italics)
                 name: bullets
@@ -59,6 +64,28 @@ collections:
                 field: {label: Bullet, name: b, widget: text}
               - {label: Link text, name: link_text, widget: string, required: false}
               - {label: Link address, name: link_url, widget: string, required: false}
+          - label: Leadership and extracurricular activities
+            name: activities
+            widget: list
+            fields:
+              - {label: Role, name: role, widget: string}
+              - {label: Organisation, name: org, widget: string}
+              - {label: Dates, name: dates, widget: string}
+              - {label: Letters shown if there is no logo, name: initials, widget: string, required: false}
+              - {label: Logo, name: logo, widget: image, required: false}
+              - label: Bullet points (use *word* for italics)
+                name: bullets
+                widget: list
+                field: {label: Bullet, name: b, widget: text}
+              - {label: Link text, name: link_text, widget: string, required: false}
+              - {label: Link address, name: link_url, widget: string, required: false}
+              - label: Photos
+                name: photos
+                widget: list
+                required: false
+                fields:
+                  - {label: Photo, name: image, widget: image}
+                  - {label: Caption, name: caption, widget: string, required: false}
           - label: Education
             name: education
             widget: list

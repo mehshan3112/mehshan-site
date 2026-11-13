@@ -1,22 +1,20 @@
-# Mehshan's website, with a login editor
+# Mehshan's website (Cloudflare Pages + login editor)
 
-How it works: the site is built from `content/site.json` and the `images` folder.
-The editor at `/admin` changes those files on GitHub, and Netlify rebuilds the site by itself in about a minute.
+The site is built from `site.json` and the pictures. The editor at `/admin` changes those files on GitHub; Cloudflare then rebuilds the site by itself in about a minute.
+Files can sit loose at the top level of the repository (no folders needed).
 
-## One-time setup
+## Cloudflare setup (one time)
 
-1. Create a free account at github.com.
-2. Create a new repository named `mehshan-site` (public or private). Choose "uploading an existing file" and upload everything from this folder (the contents, not the zip). Commit.
-3. `admin/config.yml` already points to `mehshan3112/mehshan-site`, so name the repository exactly `mehshan-site` under your account.
-4. Create a GitHub OAuth app: GitHub > Settings > Developer settings > OAuth Apps > New OAuth App.
-   - Homepage URL: your Netlify site address (step 5)
-   - Authorization callback URL: https://api.netlify.com/auth/done
-   Copy the Client ID, and generate and copy a Client Secret.
-5. Netlify: Add new site > Import an existing project > GitHub > pick `mehshan-site`. Settings are read from `netlify.toml`, so just press Deploy.
-6. Netlify: Site configuration > Access & security > OAuth > Install provider > GitHub. Paste the Client ID and Client Secret.
+1. Cloudflare dashboard > Workers & Pages > Create > Pages > Connect to Git > GitHub > pick `mehshan-site`.
+2. Project name: `mehshan` (the address becomes https://mehshan.pages.dev). If it is taken, use another name and change `site_url` and `base_url` (see below).
+3. Build settings: Framework preset None, Build command `python3 build.py`, Build output directory `dist`. Save and Deploy.
+4. GitHub OAuth app (GitHub > Settings > Developer settings > OAuth Apps): set Homepage URL `https://mehshan.pages.dev` and Authorization callback URL `https://mehshan.pages.dev/callback`. Keep the Client ID and Client Secret.
+5. Cloudflare: your Pages project > Settings > Variables and Secrets > add `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` (for Production). Then Deployments > Retry deployment, so the new settings take effect.
+6. Open https://mehshan.pages.dev/admin and press Login with GitHub.
 
-## Everyday use
+If your Cloudflare address is different, edit `base_url` in `config.yml` and `site_url` in `site.json` (or in the editor, "Website address").
 
-Open `your-site.netlify.app/admin`, press "Login with GitHub", edit, and press Publish. The public site shows no login anywhere, and only your GitHub account can edit.
+## Logos and photos
 
-Image upload: inside the editor use "Choose an image" and upload a new file.
+In the editor: Experience and Leadership entries have a Logo field (upload the image). Without a logo, the letters from "Letters shown if there is no logo" appear in a coloured badge.
+Each extracurricular entry has a Photos list: replace the "Photo slot" pictures with real ones.

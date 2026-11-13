@@ -16,6 +16,21 @@ def me():
     figs = "".join(f'<figure class="ph"><img src="{img(p["image"])}" alt="{e(p["alt"])}" loading="lazy"><figcaption>{e(p["caption"])}</figcaption></figure>' for p in a["photos"])
     return f'<section id="me"><p class="big">{"<br>".join(e(x) for x in a["headline"])}</p><p class="sub" style="margin-top:24px">{e(a["text"])}</p><div class="scat">{figs}</div></section>'
 
+def logo(x):
+    if x.get("logo"): return f'<span class="lg"><img src="{img(x["logo"])}" alt="{e(x["org"])} logo"></span>'
+    if x.get("initials"): return f'<span class="lg m" aria-hidden="true">{e(x["initials"])}</span>'
+    return ""
+def hd(x): return f'<div class="hd">{logo(x)}<div><h3>{e(x["role"])}<em>{e(x["org"])}</em></h3></div></div>'
+def bl(b): return ("<ul>" + "".join(f"<li>{f(i)}</li>" for i in b) + "</ul>") if b else ""
+
+def act():
+    out = ""
+    for x in c.get("activities", []):
+        ph = "".join(f'<figure><img src="{img(p["image"])}" alt="{e(p.get("caption") or x["org"])}" loading="lazy">' + (f'<figcaption>{e(p["caption"])}</figcaption>' if p.get("caption") else "") + "</figure>" for p in x.get("photos", []))
+        link = f'<p><a href="{e(x["link_url"])}">{e(x["link_text"])}</a></p>' if x.get("link_url") else ""
+        out += f'<div class="act">{hd(x)}<p class="dt">{e(x["dates"])}</p>{bl(x.get("bullets", []))}{link}' + (f'<div class="aph">{ph}</div>' if ph else "") + "</div>"
+    return f'<section id="activities"><h2>Leadership and extracurricular activities</h2>{out}</section>'
+
 def exp():
     dye = open(find("dye.html"), encoding="utf-8").read().replace("Colour by the ton.", e(c["dye_caption"]))
     rows = ""
@@ -25,7 +40,7 @@ def exp():
         body = ("<ul>" + "".join(f"<li>{f(i)}</li>" for i in b) + "</ul>") if len(b) > 1 else (f"<p>{f(b[0])}</p>" if b else "")
         link = f'<p><a href="{e(x["link_url"])}">{e(x["link_text"])}</a></p>' if x.get("link_url") else ""
         d = x.get("show_dye_machine")
-        rows += f'<div class="row{" dr" if d else ""}"><div class="w">{w}</div><div><h3>{e(x["role"])}<em>{e(x["org"])}</em></h3>{body}{link}</div>{dye if d else ""}</div>'
+        rows += f'<div class="row{" dr" if d else ""}"><div class="w">{w}</div><div>{hd(x)}{body}{link}</div>{dye if d else ""}</div>'
     return f'<section id="about"><h2>Experience</h2><p class="sub">{e(c["objective"])}</p><div>{rows}</div></section>'
 
 def edu():
@@ -53,7 +68,7 @@ h, ct = c["hero"], c["contact"]
 links = "".join(f'<a href="{e(ct[k])}">{n}</a>' for k, n in [("linkedin","LinkedIn"),("behance","Behance"),("facebook","Facebook")])
 page = open(find("template.html"), encoding="utf-8").read()
 for k, v in {"H1": e(h["title"]), "SUB": e(h["subtitle"]), "INTRO": e(h["intro"]), "HERO_IMG": img(h["image"]), "HERO_ALT": e(h["image_alt"]),
-             "ME": me(), "EXP": exp(), "EDU": edu(), "SKILLS": skills(), "DESIGN": design(), "EMAIL": e(ct["email"]), "LINKS": links,
+             "ME": me(), "ACT": act(), "SITE_URL": e(c.get("site_url", "").rstrip("/")), "EXP": exp(), "EDU": edu(), "SKILLS": skills(), "DESIGN": design(), "EMAIL": e(ct["email"]), "LINKS": links,
              "QUOTE": f'“{e(ct["quote"])}”<span>{e(ct["quote_author"])}</span>'}.items():
     page = page.replace(f"[[{k}]]", v)
 out = R/"dist"
@@ -72,5 +87,6 @@ for p in R.glob("*"):
 (out/"admin").mkdir()
 shutil.copy(find("admin/index.html", "index.html"), out/"admin"/"index.html")
 shutil.copy(find("admin/config.yml", "config.yml"), out/"admin"/"config.yml")
+if (R/"_worker.js").exists(): shutil.copy(R/"_worker.js", out/"_worker.js")
 print("images copied:", len(list((out/"images").iterdir())))
 print("built", len(page), "bytes")
