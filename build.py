@@ -127,6 +127,7 @@ for k, v in {"H1": f(h["title"]) if "{" in h["title"] else " ".join(f'<span clas
 out = R/"dist"
 if out.exists(): shutil.rmtree(out)
 out.mkdir()
+shutil.copy(R/"_worker.js", out/"_worker.js")
 (out/"index.html").write_text(page, encoding="utf-8")
 # images: from an images/ folder and/or loose .jpg/.png files at the top level
 (out/"images").mkdir()
