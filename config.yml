@@ -113,6 +113,17 @@ collections:
               - {label: Degree, name: degree, widget: string}
               - {label: School, name: school, widget: string}
               - {label: Dates, name: dates, widget: string}
+              - {label: Place, name: place, widget: string, required: false}
+              - {label: Logo (upload the institution's logo), name: logo, widget: image, required: false}
+              - {label: Letters shown if there is no logo (empty = automatic), name: initials, widget: string, required: false}
+              - {label: Result or short note (for example your CGPA), name: note, widget: string, required: false}
+              - label: More details (bullet points)
+                name: bullets
+                widget: list
+                required: false
+                field: {label: Detail, name: d, widget: text}
+              - {label: Link text, name: link_text, widget: string, required: false}
+              - {label: Link address, name: link_url, widget: string, required: false}
           - label: Skills
             name: skills
             widget: list

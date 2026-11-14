@@ -20,10 +20,14 @@ def me():
     return f'<section id="me"><p class="big">{"<br>".join(f(x) for x in a["headline"])}</p><p class="sub" style="margin-top:24px">{f(a["text"])}</p><div class="scat">{figs}</div></section>'
 
 def logo(x):
-    if x.get("logo"): return f'<span class="lg"><img src="{img(x["logo"])}" alt="{e(x["org"])} logo"></span>'
+    if x.get("logo"): return f'<span class="lg"><img src="{img(x["logo"])}" alt="{e(x.get("org") or x.get("school", ""))} logo"></span>'
     if x.get("initials"): return f'<span class="lg m" aria-hidden="true">{e(x["initials"])}</span>'
     return ""
-def hd(x): return f'<div class="hd">{logo(x)}<div><h3>{f(x["role"])}<em>{f(x["org"])}</em></h3></div></div>'
+def head(title, sub, x): return f'<div class="hd">{logo(x)}<div><h3>{f(title)}<em>{f(sub)}</em></h3></div></div>'
+def hd(x): return head(x["role"], x["org"], x)
+def auto_initials(name):
+    w = [t for t in re.split(r"[\s,.-]+", name) if t and t.lower() not in ("of", "and", "the", "for", "in")]
+    return "".join(t[0].upper() for t in w)[:5]
 def bl(b): return ("<ul>" + "".join(f"<li>{f(i)}</li>" for i in b) + "</ul>") if b else ""
 
 def act():
@@ -50,7 +54,14 @@ def exp():
     return f'<section id="about"><h2>Experience</h2><p class="sub">{f(c["objective"])}</p><div>{rows}</div></section>'
 
 def edu():
-    rows = "".join(f'<div class="row"><div class="w">{f(x["dates"])}</div><div><h3>{f(x["degree"])}<em>{f(x["school"])}</em></h3></div></div>' for x in c["education"])
+    rows = ""
+    for x in c["education"]:
+        x = dict(x)
+        if not x.get("logo") and not x.get("initials"): x["initials"] = auto_initials(x["school"])
+        w = f(x["dates"]) + (f'<br>{f(x["place"])}' if x.get("place") else "")
+        note = f'<p>{f(x["note"])}</p>' if x.get("note") else ""
+        link = f'<p><a href="{e(x["link_url"])}">{e(x.get("link_text") or x["link_url"])}</a></p>' if x.get("link_url") else ""
+        rows += f'<div class="row"><div class="w">{w}</div><div>{head(x["degree"], x["school"], x)}{note}{bl(x.get("bullets", []))}{link}</div></div>'
     return f'<section id="education"><h2>Education</h2>{rows}</section>'
 
 def skills():
