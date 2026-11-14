@@ -177,6 +177,24 @@ collections:
             name: training
             widget: list
             field: {label: Program, name: p, widget: string}
+          - label: Training details and certificate previews
+            name: training_details
+            widget: list
+            required: false
+            fields:
+              - {label: Training title, name: title, widget: string, required: false}
+              - {label: Provider, name: provider, widget: string, required: false}
+              - {label: Date, name: date, widget: string, required: false}
+              - {label: Certificate image, name: certificate, widget: image, required: false}
+              - {label: External link, name: link, widget: string, required: false}
+              - {label: Link label, name: link_text, widget: string, required: false}
+          - label: Project work entries
+            name: project_work
+            widget: list
+            required: false
+            fields:
+              - {label: Project title, name: title, widget: string, required: false}
+              - {label: Description, name: text, widget: text, required: false}
           - label: Project work
             name: project
             widget: object
