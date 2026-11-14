@@ -112,9 +112,21 @@ def training_projects():
 
 def build_section_layout(parts):
     labels = {'me': 'About', 'about': 'Experience', 'education': 'Education', 'activities': 'Leadership', 'skills': 'Skills', 'training-projects': 'Training & Project Work', 'design': 'Design'}
-    for section in c.get('custom_sections', []):
+    registry = c.get('sections')
+    if not registry:
+        legacy_settings = {x.get('id'): x for x in c.get('section_settings', [])}
+        old_order = c.get('section_order') or ['me', 'about', 'education', 'activities', 'skills', 'training-projects', 'design']
+        registry = [{'id': sid, **legacy_settings.get(sid, {})} for sid in old_order]
+
+    # Custom sections live in the same ordered list as built-in sections.
+    for section in registry:
+        if not isinstance(section, dict):
+            continue
         sid = re.sub(r'[^a-z0-9-]+', '-', str(section.get('id', 'custom')).lower()).strip('-') or 'custom'
-        labels[sid] = section.get('title') or 'Section'
+        if sid in parts:
+            continue
+        title = section.get('title') or 'Section'
+        labels[sid] = title
         if not section.get('visible', True):
             continue
         body = ''
@@ -127,26 +139,22 @@ def build_section_layout(parts):
             elif kind == 'image' and block.get('image'):
                 body += '<figure><img src="' + img(block['image']) + '" alt="' + e(block.get('alt', '')) + '">' + ('<figcaption>' + f(block.get('caption', '')) + '</figcaption>' if block.get('caption') else '') + '</figure>'
             elif kind == 'gallery' and block.get('images'):
-                body += '<div class="custom-gallery">' + ''.join('<figure><img src="' + img(p['image']) + '" alt="' + e(p.get('alt', '')) + '">' + ('<figcaption>' + f(p.get('caption', '')) + '</figcaption>' if p.get('caption') else '') + '</figure>' for p in block['images'] if p.get('image'))
+                body += '<div class="custom-gallery">' + ''.join('<figure><img src="' + img(p['image']) + '" alt="' + e(p.get('alt', '')) + '">' + ('<figcaption>' + f(p.get('caption', '')) + '</figcaption>' if p.get('caption') else '') + '</figure>' for p in block['images'] if p.get('image')) + '</div>'
             elif kind == 'list' and block.get('items'):
                 body += '<ul>' + ''.join('<li>' + f(v) + '</li>' for v in block['items'] if v) + '</ul>'
             elif kind == 'link' and block.get('url'):
                 body += '<p><a href="' + e(block['url']) + '">' + f(block.get('label') or block['url']) + '</a></p>'
         if body:
-            parts[sid] = '<section id="' + e(sid) + '"><h2>' + f(section.get('title') or 'Section') + '</h2>' + body + '</section>'
+            parts[sid] = '<section id="' + e(sid) + '"><h2>' + f(title) + '</h2>' + body + '</section>'
 
-    # Backward compatibility for existing site.json files not yet migrated.
-    legacy_settings = {x.get('id'): x for x in c.get('section_settings', [])}
-    registry = c.get('sections')
-    if not registry:
-        old_order = c.get('section_order') or ['me', 'about', 'education', 'activities', 'skills', 'training-projects', 'design']
-        registry = [{'id': sid, **legacy_settings.get(sid, {})} for sid in old_order]
+    # Existing older data is upgraded transparently; the current editor stores one ordered list.
+    settings = {x.get('id'): x for x in c.get('section_settings', [])}
     ordered_ids = [x.get('id') if isinstance(x, dict) else x for x in registry]
     ordered_ids += [sid for sid in parts if sid not in ordered_ids]
     registry_by_id = {x.get('id'): x for x in registry if isinstance(x, dict)}
     output, nav = [], []
     for sid in ordered_ids:
-        item = registry_by_id.get(sid, legacy_settings.get(sid, {}))
+        item = registry_by_id.get(sid, settings.get(sid, {}))
         if sid in parts and item.get('visible', True) and parts[sid]:
             output.append(parts[sid])
             nav.append('<a href="#' + e(sid) + '">' + e(item.get('title') or labels.get(sid, sid.title())) + '</a>')
