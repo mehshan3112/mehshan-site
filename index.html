@@ -26,6 +26,7 @@
     addGallery:function(si,bi){var a=clone(plain(this.props.value));a[si].blocks[bi].images=a[si].blocks[bi].images||[];a[si].blocks[bi].images.push({image:'',alt:'',caption:''});this.update(a);},
     patchGallery:function(si,bi,pi,k,v){var a=clone(plain(this.props.value));a[si].blocks[bi].images[pi][k]=v;this.update(a);},
     field:function(label,value,change,multi){return h('label',{className:'sm-field'},label,multi?h('textarea',{value:value||'',rows:3,onChange:function(e){change(e.target.value);}}):h('input',{type:'text',value:value||'',onChange:function(e){change(e.target.value);}}));},
+    numberField:function(label,value,change){return h('label',{className:'sm-field'},label,h('input',{type:'number',min:0,max:200,value:value==null?'':value,onChange:function(e){change(e.target.value===''?null:Number(e.target.value));}}));},
     block:function(x,si,bi){
       var self=this,type=x.type||'text',fs=[];
       fs.push(h('label',{className:'sm-field'},'Block type',h('select',{value:type,onChange:function(e){self.patchBlock(si,bi,'type',e.target.value);}},['heading','text','image','gallery','list','link'].map(function(v){return h('option',{key:v,value:v},v);}))));
@@ -57,9 +58,11 @@
                 h('button',{type:'button',disabled:i===0,onClick:function(){self.move(i,-1);}},'↑ Up'),
                 h('button',{type:'button',disabled:i===rows.length-1,onClick:function(){self.move(i,1);}},'↓ Down'),
                 h('button',{type:'button',onClick:function(){self.remove(i);}},'Delete'))),
-            self.field('Section ID',row.id,function(v){self.patchSection(i,'id',v);}),
+            self.field('Section ID (lowercase, hyphens; keep built-in IDs unchanged)',row.id,function(v){self.patchSection(i,'id',v.toLowerCase().replace(/[^a-z0-9-]+/g,'-').replace(/^-+|-+$/g,''));}),
             self.field('Section title / navigation label',row.title,function(v){self.patchSection(i,'title',v);}),
             h('label',{className:'sm-toggle'},h('input',{type:'checkbox',checked:row.visible!==false,onChange:function(e){self.patchSection(i,'visible',e.target.checked);}}),' Show this section'),
+            self.numberField('Desktop section top spacing override (px, optional)',row.desktop_spacing,function(v){self.patchSection(i,'desktop_spacing',v);}),
+            self.numberField('Mobile section top spacing override (px, optional)',row.mobile_spacing,function(v){self.patchSection(i,'mobile_spacing',v);}),
             custom?h('div',{className:'sm-blocks'},h('h4',{},'Custom section content'),(row.blocks||[]).map(function(x,bi){return self.block(x,i,bi);}),h('button',{type:'button',onClick:function(){self.addBlock(i);}},'+ Add content block')):null);
         }),
         h('button',{type:'button',className:'sm-add',onClick:this.addSection},'+ Add a new section'));
