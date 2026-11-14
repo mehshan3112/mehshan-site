@@ -20,28 +20,22 @@ collections:
         format: json
         fields:
           - {label: Website address (no slash at the end), name: site_url, widget: string}
-          - label: Section order and visibility
-            name: section_order
+          - label: Page sections — reorder, rename and show or hide
+            name: sections
             widget: list
             required: false
-            hint: "Drag items to change the order. Built-in IDs: me, about, education, activities, skills, design. Add custom section IDs after these."
-            field: {label: Section ID, name: id, widget: string}
-          - label: Section title and visibility overrides
-            name: section_settings
-            widget: list
-            required: false
+            hint: "Each row is one complete page section. Drag the row to move the whole section. Built-in IDs: me, about, education, activities, skills, training-projects, design."
             fields:
-              - {label: Section ID, name: id, widget: string, required: false}
-              - {label: Navigation and section title, name: title, widget: string, required: false}
-              - {label: Visible, name: visible, widget: boolean, default: true, required: false}
-          - label: Custom sections
+              - {label: Section ID (do not change built-in IDs), name: id, widget: string, required: false}
+              - {label: Navigation and section heading, name: title, widget: string, required: false}
+              - {label: Show this section, name: visible, widget: boolean, default: true, required: false}
+          - label: Custom section content
             name: custom_sections
             widget: list
             required: false
+            hint: "For each custom section, add its ID to Page sections above, then add its content blocks here using the same ID."
             fields:
-              - {label: Unique ID (lowercase, e.g. publications), name: id, widget: string, required: false}
-              - {label: Section title, name: title, widget: string, required: false}
-              - {label: Show section, name: visible, widget: boolean, default: true, required: false}
+              - {label: Section ID (must match Page sections), name: id, widget: string, required: false}
               - label: Content blocks
                 name: blocks
                 widget: list
@@ -181,11 +175,7 @@ collections:
                 name: items
                 widget: list
                 field: {label: Item, name: i, widget: string}
-          - label: Training programs
-            name: training
-            widget: list
-            field: {label: Program, name: p, widget: string}
-          - label: Training details and certificate previews
+          - label: Training (certificate appears only on hover)
             name: training_details
             widget: list
             required: false
@@ -196,19 +186,13 @@ collections:
               - {label: Certificate image, name: certificate, widget: image, required: false}
               - {label: External link, name: link, widget: string, required: false}
               - {label: Link label, name: link_text, widget: string, required: false}
-          - label: Project work entries
+          - label: Project Work
             name: project_work
             widget: list
             required: false
             fields:
               - {label: Project title, name: title, widget: string, required: false}
               - {label: Description, name: text, widget: text, required: false}
-          - label: Project work
-            name: project
-            widget: object
-            fields:
-              - {label: Title, name: title, widget: string}
-              - {label: Text, name: text, widget: text}
           - label: Design section
             name: designs
             widget: object
