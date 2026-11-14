@@ -65,13 +65,22 @@ def edu():
     return f'<section id="education"><h2>Education</h2>{rows}</section>'
 
 def skills():
-    g = "".join(f'<div><h3>{f(s["title"])}</h3><ul>' + "".join(f"<li>{f(i)}</li>" for i in s["items"]) + "</ul></div>" for s in c["skills"])
-    tr = "".join(f"<li>{f(i)}</li>" for i in c["training"])
-    p = c["project"]
-    return (f'<section id="skills"><h2>Skills and training</h2><div class="cols" style="margin-top:36px">{g}</div>'
-            f'<div class="cols" style="margin-top:44px;grid-template-columns:1fr 1fr"><div><h3>Training programs</h3><ul>{tr}</ul></div>'
-            f'<div><h3>Project work</h3><p style="margin:0"><b>{f(p["title"])}.</b> {f(p["text"])}</p></div></div></section>')
+    groups = c.get('skills', [])
+    g = ''.join('<div><h3>' + f(s.get('title', '')) + '</h3><ul>' + ''.join('<li>' + f(i) + '</li>' for i in s.get('items', []) if i) + '</ul></div>' for s in groups if s.get('title') or s.get('items'))
+    return '<section id="skills"><h2>Skills</h2><div class="cols" style="margin-top:36px">' + g + '</div></section>'
 
+def training_projects():
+    training = c.get('training_details', []) or [{'title': item} for item in c.get('training', [])]
+    trows = ''
+    for x in training:
+        title = f(x.get('title', ''))
+        meta = ' · '.join(v for v in [f(x.get('provider', '')), f(x.get('date', ''))] if v)
+        cert = '<span class="cert-preview"><img src="' + img(x['certificate']) + '" alt="' + e(x.get('title') or 'Certificate') + '"></span>' if x.get('certificate') else ''
+        link = '<p><a href="' + e(x['link']) + '">' + f(x.get('link_text') or 'View details') + '</a></p>' if x.get('link') else ''
+        if title or meta or cert or link: trows += '<li class="training-item">' + cert + '<div><b>' + title + '</b>' + ('<small>' + meta + '</small>' if meta else '') + link + '</div></li>'
+    projects = c.get('project_work') or ([c.get('project', {})] if c.get('project') else [])
+    prows = ''.join('<article class="project-item">' + ('<h3>' + f(p['title']) + '</h3>' if p.get('title') else '') + ('<p>' + f(p['text']) + '</p>' if p.get('text') else '') + '</article>' for p in projects if p.get('title') or p.get('text'))
+    return '<section id="training-projects"><div class="tp-grid"><div><h2>Training</h2><ul class="training-list">' + trows + '</ul></div><div><h2>Project Work</h2>' + prows + '</div></div></section>'
 def design():
     d = c["designs"]; it = d["items"]; n = len(it)
     lst = "".join(f'<li><button type="button" data-i="{i}"><span class="n">#{i+1:04d}/{n}</span><span class="t">{f(x["title"])}</span><span class="k">{f(x["kind"])}</span></button></li>' for i, x in enumerate(it))
