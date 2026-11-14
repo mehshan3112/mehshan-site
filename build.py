@@ -145,7 +145,7 @@ def build_section_layout(parts):
             if style_bits:
                 section_html = re.sub(r'<section(?=\s)', '<section style="' + ';'.join(style_bits) + '"', section_html, count=1)
             if item.get('title'):
-                section_html = re.sub(r'(<h2\\b[^>]*>).*?(</h2>)', lambda m: m.group(1) + f(item['title']) + m.group(2), section_html, count=1)
+                section_html = re.sub(r'(<h2\b[^>]*>).*?(</h2>)', lambda m: m.group(1) + f(item['title']) + m.group(2), section_html, count=1)
             output.append(section_html)
             nav.append('<a href="#' + e(sid) + '">' + e(item.get('title') or labels.get(sid, sid.title())) + '</a>')
     return '<div class="st"></div>'.join(output), ''.join(nav)
