@@ -329,5 +329,10 @@
       "visible": true
     }
   ],
-  "project_work": []
+  "project_work": [
+    {
+      "title": "Data-driven approach to techpack automation",
+      "text": "Developed methods to verify grading rules, ensuring accuracy and consistency across production specifications."
+    }
+  ]
 }
