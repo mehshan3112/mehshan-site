@@ -35,7 +35,7 @@ jobs:
           python - <<'PY'
           import pathlib, re
           html = pathlib.Path("index.html").read_text()
-          scripts = re.findall(r'<script>\\s*(.*?)\\s*</script>', html, re.S)
+          scripts = re.findall(r'<script>\s*(.*?)\s*</script>', html, re.S)
           assert scripts, "custom widget script not found"
           pathlib.Path("/tmp/cms-widget.js").write_text(scripts[-1])
           PY
