@@ -27,9 +27,19 @@ jobs:
           assert sections["widget"] == "sectionmanager"
           admin = pathlib.Path("index.html").read_text()
           assert "CMS.registerWidget('sectionmanager'" in admin
-          assert "'↑ Up'" in admin and "'↓ Down'" in admin
+          assert "'↑ Up'" in admin and "'↓ Down'" in admin\n          assert "Desktop section top spacing override" in admin
           print("CMS configuration and section manager registration passed")
           PY
+      - name: Check custom CMS JavaScript syntax
+        run: |
+          python - <<'PY'
+          import pathlib, re
+          html = pathlib.Path("index.html").read_text()
+          scripts = re.findall(r'<script>\\s*(.*?)\\s*</script>', html, re.S)
+          assert scripts, "custom widget script not found"
+          pathlib.Path("/tmp/cms-widget.js").write_text(scripts[-1])
+          PY
+          node --check /tmp/cms-widget.js
       - name: Compile and build the website
         run: |
           python -m py_compile build.py
