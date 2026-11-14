@@ -108,11 +108,18 @@ def build_section_layout(parts):
         old_order = c.get('section_order') or ['me', 'about', 'education', 'activities', 'skills', 'training-projects', 'design']
         registry = [{'id': sid, **legacy_settings.get(sid, {})} for sid in old_order]
 
+    # Normalize IDs once so custom IDs map consistently to page anchors and navigation.
+    normalized = []
+    for section in registry:
+        if isinstance(section, dict):
+            item = dict(section)
+            item['id'] = re.sub(r'[^a-z0-9-]+', '-', str(item.get('id', 'custom')).lower()).strip('-') or 'custom'
+            normalized.append(item)
+    registry = normalized
+
     # Custom sections live in the same ordered list as built-in sections.
     for section in registry:
-        if not isinstance(section, dict):
-            continue
-        sid = re.sub(r'[^a-z0-9-]+', '-', str(section.get('id', 'custom')).lower()).strip('-') or 'custom'
+        sid = section['id']
         if sid in parts:
             continue
         title = section.get('title') or 'Section'
