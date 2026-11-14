@@ -70,28 +70,6 @@ def skills():
     return '<section id="skills"><h2>Skills</h2><div class="cols" style="margin-top:36px">' + g + '</div></section>'
 
 def training_projects():
-    training = c.get('training_details', []) or [{'title': item} for item in c.get('training', [])]
-    trows = ''
-    for x in training:
-        title = f(x.get('title', ''))
-        meta = ' · '.join(v for v in [f(x.get('provider', '')), f(x.get('date', ''))] if v)
-        cert = '<span class="cert-preview"><img src="' + img(x['certificate']) + '" alt="' + e(x.get('title') or 'Certificate') + '"></span>' if x.get('certificate') else ''
-        link = '<p><a href="' + e(x['link']) + '">' + f(x.get('link_text') or 'View details') + '</a></p>' if x.get('link') else ''
-        if title or meta or cert or link: trows += '<li class="training-item">' + cert + '<div><b>' + title + '</b>' + ('<small>' + meta + '</small>' if meta else '') + link + '</div></li>'
-    projects = c.get('project_work') or ([c.get('project', {})] if c.get('project') else [])
-    prows = ''.join('<article class="project-item">' + ('<h3>' + f(p['title']) + '</h3>' if p.get('title') else '') + ('<p>' + f(p['text']) + '</p>' if p.get('text') else '') + '</article>' for p in projects if p.get('title') or p.get('text'))
-    return '<section id="training-projects"><div class="tp-grid"><div><h2>Training</h2><ul class="training-list">' + trows + '</ul></div><div><h2>Project Work</h2>' + prows + '</div></div></section>'
-def design():
-    d = c["designs"]; it = d["items"]; n = len(it)
-    lst = "".join(f'<li><button type="button" data-i="{i}"><span class="n">#{i+1:04d}/{n}</span><span class="t">{f(x["title"])}</span><span class="k">{f(x["kind"])}</span></button></li>' for i, x in enumerate(it))
-    figs = "".join(f'<figure><button type="button" data-l="{e(x["link"])}" data-t="{e(x["title"])}"><img src="{img(x["image"])}" alt="{e(x["title"])} {e(x["kind"]).lower()} by Mehshan" loading="lazy"></button><figcaption><b>{e(x["title"])}</b><span>{e(x["kind"])}</span></figcaption></figure>' for x in it)
-    return (f'<section id="design"><h2 style="letter-spacing:.3em">Design</h2><p class="sub" style="max-width:46em;margin-top:0">{f(d["intro"])}</p>'
-            f'<ol class="wl">{lst}</ol><div id="pv" aria-hidden="true"><img alt=""></div>'
-            f'<p class="sub" style="margin:56px 0 18px">All pieces, in one strip. Scroll sideways.</p><div class="strip">{figs}</div>'
-            f'<p style="margin-top:12px"><a class="btn" href="{e(d["behance"])}">Full portfolio on Behance</a></p></section>')
-
-
-def training_projects():
     training = c.get("training_details", [])
     trows = ""
     for x in training:
