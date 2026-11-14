@@ -82,10 +82,31 @@ def design():
             f'<p style="margin-top:12px"><a class="btn" href="{e(d["behance"])}">Full portfolio on Behance</a></p></section>')
 
 
+def training_projects():
+    training = c.get("training_details", [])
+    if not training:
+        training = [{"title": item} for item in c.get("training", [])]
+    trows = ""
+    for x in training:
+        title = f(x.get("title", ""))
+        provider = f(x.get("provider", ""))
+        date = f(x.get("date", ""))
+        meta = " · ".join(v for v in [provider, date] if v)
+        cert = f'<span class="cert-preview"><img src="{img(x["certificate"])}" alt="{e(x.get("title") or "Certificate")}"></span>' if x.get("certificate") else ""
+        link = f'<p><a href="{e(x["link"])}">{f(x.get("link_text") or "View details")}</a></p>' if x.get("link") else ""
+        if title or meta or cert or link:
+            trows += f'<li class="training-item">{cert}<div><b>{title}</b>{f("<small>"+meta+"</small>") if meta else ""}{link}</div></li>'
+    projects = c.get("project_work") or ([c.get("project", {})] if c.get("project") else [])
+    prows = ""
+    for p in projects:
+        if p.get("title") or p.get("text"):
+            prows += f'<article class="project-item">{f("<h3>"+p["title"]+"</h3>") if p.get("title") else ""}{f("<p>"+p["text"]+"</p>") if p.get("text") else ""}</article>'
+    return f'<section id="training-projects"><div class="tp-grid"><div><h2>Training</h2><ul class="training-list">{trows}</ul></div><div><h2>Project Work</h2>{prows}</div></div></section>'
+
 def build_section_layout(parts):
-    labels = {'me': 'About', 'about': 'Experience', 'education': 'Education', 'activities': 'Leadership', 'skills': 'Skills and training', 'design': 'Design'}
+    labels = {'me': 'About', 'about': 'Experience', 'education': 'Education', 'activities': 'Leadership', 'skills': 'Skills', 'training-projects': 'Training & Projects', 'design': 'Design'}
     settings = {x.get('id'): x for x in c.get('section_settings', [])}
-    order = c.get('section_order') or ['me', 'about', 'education', 'activities', 'skills', 'design']
+    order = c.get('section_order') or ['me', 'about', 'education', 'activities', 'skills', 'training-projects', 'design']
     output, nav = [], []
     for sid in order:
         item = settings.get(sid, {})
@@ -146,7 +167,7 @@ credit = f'<p class="fc">{f(c["font_credit"])}</p>' if c.get("font_credit") else
 h, ct = c["hero"], c["contact"]
 links = "".join(f'<a href="{e(ct[k])}">{n}</a>' for k, n in [("linkedin","LinkedIn"),("behance","Behance"),("facebook","Facebook")])
 page = open(find("template.html"), encoding="utf-8").read()
-sections_html, nav_html = build_section_layout({'me': me(), 'about': exp(), 'education': edu(), 'activities': act(), 'skills': skills(), 'design': design()})
+sections_html, nav_html = build_section_layout({'me': me(), 'about': exp(), 'education': edu(), 'activities': act(), 'skills': skills(), 'training-projects': training_projects(), 'design': design()})
 for k, v in {"H1": f(h["title"]) if "{" in h["title"] else " ".join(f'<span class="nw">{e(w)}</span>' for w in h["title"].split()), "SUB": f(h["subtitle"]), "INTRO": f(h["intro"]), "HERO_IMG": img(h["image"]), "HERO_ALT": e(h["image_alt"]),
              "NAV": nav_html, "SECTIONS": sections_html, "SITE_URL": e(c.get("site_url", "").rstrip("/")), "EMAIL": e(ct["email"]), "LINKS": links,
              "FONTS": fonts_html, "CREDIT": credit, "QUOTE": f'“{f(ct["quote"])}”<span>{f(ct["quote_author"])}</span>'}.items():
