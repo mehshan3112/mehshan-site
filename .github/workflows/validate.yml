@@ -27,7 +27,8 @@ jobs:
           assert sections["widget"] == "sectionmanager"
           admin = pathlib.Path("index.html").read_text()
           assert "CMS.registerWidget('sectionmanager'" in admin
-          assert "'↑ Up'" in admin and "'↓ Down'" in admin\n          assert "Desktop section top spacing override" in admin
+          assert "'↑ Up'" in admin and "'↓ Down'" in admin
+          assert "Desktop section top spacing override" in admin
           print("CMS configuration and section manager registration passed")
           PY
       - name: Check custom CMS JavaScript syntax
