@@ -187,12 +187,14 @@ dialog a:hover,dialog button:hover{background:var(--weft);border-color:var(--wef
 .tp-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px)}
 .tp-grid h2{font-size:clamp(1.8rem,3.8vw,3rem);margin-bottom:24px}
 .training-list{list-style:none;margin:0;padding:0}
-.training-item{display:flex;align-items:flex-start;gap:14px;padding:15px 0;border-top:1px solid var(--line)}
+.training-item{display:block;padding:15px 0;border-top:1px solid var(--line);cursor:default;outline-offset:4px}
 .training-item:last-child{border-bottom:1px solid var(--line)}
 .training-item small{display:block;color:var(--mute);font-size:.88rem;margin-top:4px}
-.cert-preview{display:block;flex:0 0 62px;width:62px;height:62px;overflow:hidden;border-radius:4px;background:var(--bg2)}
-.cert-preview img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
-.training-item:hover .cert-preview img{transform:scale(1.08)}
+.training-item:hover b,.training-item:focus-visible b{color:var(--weft)}
+#cert-hover{position:fixed;z-index:12;display:none;pointer-events:none;width:min(420px,42vw);max-height:65vh;padding:8px;background:var(--bg2);border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.55);border-radius:4px}
+#cert-hover.on{display:block}
+#cert-hover img{display:block;max-width:100%;max-height:calc(65vh - 16px);width:auto;height:auto;object-fit:contain}
+@media(hover:none){#cert-hover{display:none!important}}
 .project-item{padding:14px 0;border-top:1px solid var(--line)}
 .project-item h3{font:700 1.25rem var(--fh);margin:0}
 .project-item p{margin:8px 0}
@@ -224,9 +226,20 @@ dialog a:hover,dialog button:hover{background:var(--weft);border-color:var(--wef
 <p class="q">[[QUOTE]]</p>[[CREDIT]]
 </div>
 </footer>
+<div id="cert-hover" aria-hidden="true"><img alt="Certificate preview"></div>
 <dialog id="dg" aria-label="Design preview"><img alt=""><div><a target="_blank" rel="noopener">View on Behance</a><button type="button">Close</button></div></dialog>
 <script>
 (function(){
+var certBox=document.getElementById('cert-hover'),certImg=certBox.querySelector('img');
+function showCert(item,x,y){var src=item.getAttribute('data-cert');if(!src)return;certImg.src=src;certImg.alt='Certificate: '+(item.querySelector('b')?.textContent||'Training');certBox.classList.add('on');moveCert(x,y)}
+function moveCert(x,y){var left=Math.min(x+22,innerWidth-certBox.offsetWidth-12),top=Math.min(y+18,innerHeight-certBox.offsetHeight-12);certBox.style.left=Math.max(12,left)+'px';certBox.style.top=Math.max(12,top)+'px'}
+document.querySelectorAll('.training-item[data-cert]').forEach(function(item){
+ item.addEventListener('mouseenter',function(e){showCert(item,e.clientX,e.clientY)});
+ item.addEventListener('mousemove',function(e){moveCert(e.clientX,e.clientY)});
+ item.addEventListener('mouseleave',function(){certBox.classList.remove('on')});
+ item.addEventListener('focus',function(){var r=item.getBoundingClientRect();showCert(item,r.right,r.top)});
+ item.addEventListener('blur',function(){certBox.classList.remove('on')});
+});
 var d=document.getElementById('dg'),im=d.querySelector('img'),a=d.querySelector('a');
 document.querySelectorAll('.strip button').forEach(function(b){b.addEventListener('click',function(){var i=b.querySelector('img');im.src=i.src;im.alt=i.alt;a.href=b.dataset.l;d.showModal()})});
 var imgs=[].slice.call(document.querySelectorAll('.strip img')),btns=[].slice.call(document.querySelectorAll('.strip button'));
