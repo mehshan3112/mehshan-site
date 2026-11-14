@@ -16,7 +16,7 @@
 <title>S.A.S Mehshan-UL-Islam | Textile Engineer & Graphic Designer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Hanken+Grotesk:wght@400;500;600&family=Noto+Sans+Bengali:wght@500;700&display=swap" rel="stylesheet">
+[[FONTS]]
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.className='js'</script>
 <style>
 :root{--bg:#150608;--bg2:#1f0c0f;--ink:#f3e9e6;--mute:#b9a5a6;--line:#3b2326;--acc:#e0303d;--weft:#d4a94f;--ind:#6f8fc4;
@@ -25,13 +25,13 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:en
 :root[data-theme="light"]{--bg:#f4f1ee;--bg2:#e9e3df;--ink:#1d1113;--mute:#6a5a5c;--line:#d3c8c4;--acc:#8e0b17;--weft:#a8821f;--ind:#1f3a5f}
 html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
 *,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.65 "Hanken Grotesk","Noto Sans Bengali",system-ui,sans-serif;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.65 var(--fb);overflow-x:hidden}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--weft);outline-offset:3px}
-h1,h2,h3{font-family:Fraunces,Georgia,serif;margin:0;line-height:1}
+h1,h2,h3{font-family:var(--fh);margin:0;line-height:1}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
 nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 24px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-nav b{font-family:Fraunces,serif;font-size:1.1rem}
+nav b{font-family:var(--fh);font-size:1.1rem}
 nav div a{margin-left:22px;text-decoration:none;font-weight:500;color:var(--mute)}
 nav div a:hover{color:var(--ink)}
 .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
@@ -47,7 +47,7 @@ nav div a:hover{color:var(--ink)}
 .btn:hover{background:var(--weft);border-color:var(--weft);color:#1d1113}
 .pt{align-self:end;justify-self:end;width:min(100%,440px)}
 .pt img{display:block;width:100%;height:auto;-webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent);mask-image:linear-gradient(to bottom,#000 72%,transparent)}
-.mq{overflow:hidden;white-space:nowrap;background:var(--acc);color:#fff;font-family:Fraunces,serif;font-size:1.5rem;padding:14px 0}
+.mq{overflow:hidden;white-space:nowrap;background:var(--acc);color:#fff;font-family:var(--fh);font-size:1.5rem;padding:14px 0}
 .mq span{display:inline-block;padding-left:100%;animation:mq 38s linear infinite}
 @keyframes mq{to{transform:translateX(-100%)}}
 section{padding:84px 0 0}
@@ -65,7 +65,7 @@ figcaption span{color:var(--mute)}
 .row:last-child{border-bottom:1px solid var(--line)}
 .row .w{color:var(--mute);font-size:.95rem}
 .row h3{font-size:1.6rem;font-weight:700;line-height:1.15}
-.row h3 em{display:block;font:500 1rem "Hanken Grotesk",sans-serif;color:var(--mute);margin-top:6px}
+.row h3 em{display:block;font:500 1rem var(--fb);color:var(--mute);margin-top:6px}
 .row ul{margin:14px 0 0;padding-left:20px;max-width:46em}
 .row li{margin-bottom:6px}
 .row p{margin:12px 0 0;max-width:46em}
@@ -74,14 +74,14 @@ figcaption span{color:var(--mute)}
 .cols ul{margin:0;padding-left:18px}
 .cols li{margin-bottom:6px}
 .ct{margin-top:96px;background:var(--bg2);padding:72px 0 80px;border-top:1px solid var(--line)}
-.ct a.m{display:block;font-family:Fraunces,serif;font-weight:900;font-size:clamp(1.6rem,5.2vw,4rem);letter-spacing:-.03em;text-decoration:none;word-break:break-all;margin:20px 0 28px}
+.ct a.m{display:block;font-family:var(--fh);font-weight:900;font-size:clamp(1.6rem,5.2vw,4rem);letter-spacing:-.03em;text-decoration:none;word-break:break-all;margin:20px 0 28px}
 .ct a.m:hover{color:var(--acc)}
 .ct nav2 a,.ct .s a{margin-right:24px;font-weight:600}
 .wl{list-style:none;margin:0;padding:0;counter-reset:x}
 .wl button{display:grid;grid-template-columns:150px 1fr auto;gap:20px;align-items:baseline;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:20px 0;color:var(--ink);cursor:pointer;font:inherit;transition:opacity .25s,padding .25s}
 .wl li:last-child button{border-bottom:1px solid var(--line)}
 .wl .n{color:var(--mute);font-size:.9rem}
-.wl .t{font:700 clamp(1.5rem,3.6vw,2.7rem)/1.1 Fraunces,"Noto Sans Bengali",serif;letter-spacing:-.02em}
+.wl .t{font:700 clamp(1.5rem,3.6vw,2.7rem)/1.1 var(--fh);letter-spacing:-.02em}
 .wl .k{color:var(--mute);font-size:.95rem}
 .wl:hover button{opacity:.3}
 .wl button:hover,.wl button:focus-visible{opacity:1;padding-left:16px;color:var(--acc)}
@@ -94,11 +94,11 @@ figcaption span{color:var(--mute)}
 @media (hover:none){#pv{display:none}}
 @media (max-width:820px){.wl button{grid-template-columns:1fr auto}.wl .n{display:none}}
 .hero{background:radial-gradient(ellipse at 72% 30%,color-mix(in srgb,var(--acc) 38%,var(--bg)) 0,var(--bg) 72%)}
-.big{font:900 clamp(2.6rem,9vw,7.5rem)/.95 Fraunces,serif;letter-spacing:-.04em;margin:0 0 8px;color:transparent;-webkit-text-stroke:2px var(--ink)}
+.big{font:900 clamp(2.6rem,9vw,7.5rem)/.95 var(--fh);letter-spacing:-.04em;margin:0 0 8px;color:transparent;-webkit-text-stroke:2px var(--ink)}
 .scat{display:grid;grid-template-columns:repeat(6,1fr);gap:40px 28px;align-items:start;margin-top:48px}
 .ph{margin:0}
 .ph img{display:block;width:100%;height:auto;border:8px solid var(--ink);box-shadow:0 14px 34px rgba(0,0,0,.35)}
-.ph figcaption{display:block;padding:12px 4px 0;font:italic 400 .98rem "Hanken Grotesk",sans-serif;color:var(--mute)}
+.ph figcaption{display:block;padding:12px 4px 0;font:italic 400 .98rem var(--fb);color:var(--mute)}
 .ph:nth-child(1){grid-column:1/5;transform:rotate(-1.4deg)}
 .ph:nth-child(2){grid-column:3/7;transform:rotate(1.4deg)}
 .ph:nth-child(3){grid-column:1/5;transform:rotate(-1deg)}
@@ -119,13 +119,13 @@ figcaption span{color:var(--mute)}
 .track::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:repeating-linear-gradient(0deg,var(--weft) 0 8px,transparent 8px 14px);opacity:.55}
 .stone{position:absolute;left:0;top:0;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.55),transparent 45%),var(--weft);box-shadow:0 2px 6px rgba(0,0,0,.45);will-change:transform}
 .stone.fall{transition:transform 1.5s cubic-bezier(.55,0,1,.6)}
-.q{margin:64px 0 0;padding-top:28px;border-top:1px solid var(--line);font:italic 400 1.2rem/1.5 Fraunces,Georgia,serif;color:var(--mute)}
-.q span{display:block;margin-top:6px;font:400 .9rem "Hanken Grotesk",sans-serif;font-style:normal}
+.q{margin:64px 0 0;padding-top:28px;border-top:1px solid var(--line);font:italic 400 1.2rem/1.5 var(--fh);color:var(--mute)}
+.q span{display:block;margin-top:6px;font:400 .9rem var(--fb);font-style:normal}
 @media (prefers-reduced-motion:reduce){.stone.fall{transition:none}}
 .row.dr{grid-template-columns:200px 1fr 260px}
 .dye{align-self:center}
 .dye svg{display:block;width:100%;height:auto;overflow:visible}
-.dye .cap{margin:6px 0 0;font:italic 400 .88rem "Hanken Grotesk",sans-serif;color:var(--mute);text-align:center}
+.dye .cap{margin:6px 0 0;font:italic 400 .88rem var(--fb);color:var(--mute);text-align:center}
 .dye .o{stroke:#0e0709;stroke-width:3;stroke-linejoin:round}
 .dye .b{fill:#4a73b8}.dye .gl{fill:#dff0fa}
 .dye .bk{fill:none;stroke:var(--mute);stroke-width:3;stroke-linejoin:round}
@@ -160,11 +160,11 @@ figcaption span{color:var(--mute)}
 .hd{display:flex;align-items:center;gap:16px}
 .lg{flex:0 0 60px;width:60px;height:60px;border-radius:12px;background:#fff;display:grid;place-items:center;overflow:hidden}
 .lg img{width:100%;height:100%;object-fit:contain;padding:6px;display:block}
-.lg.m{background:var(--acc);color:#fff;font:900 .95rem/1 Fraunces,Georgia,serif;letter-spacing:-.02em}
+.lg.m{background:var(--acc);color:#fff;font:900 .95rem/1 var(--fh);letter-spacing:-.02em}
 .act{padding:30px 0;border-top:1px solid var(--line)}
 .act:last-child{border-bottom:1px solid var(--line)}
 .act h3{font-size:1.6rem;font-weight:700;line-height:1.15}
-.act h3 em{display:block;font:500 1rem "Hanken Grotesk",sans-serif;color:var(--mute);margin-top:6px}
+.act h3 em{display:block;font:500 1rem var(--fb);color:var(--mute);margin-top:6px}
 .act .dt{color:var(--mute);font-size:.95rem;margin:14px 0 0}
 .act ul{margin:10px 0 0;padding-left:20px;max-width:48em}
 .act li{margin-bottom:6px}
@@ -173,13 +173,14 @@ figcaption span{color:var(--mute)}
 .aph img{display:block;width:100%;aspect-ratio:4/3;object-fit:contain;background:var(--bg2);border-radius:4px}
 .aph img.crop{object-fit:cover}
 .aph figcaption{padding:6px 2px 0;font-size:.88rem;color:var(--mute)}
+.fc{margin:28px 0 0;font-size:.82rem;color:var(--mute)}
 dialog{border:0;padding:0;background:transparent;max-width:min(92vw,980px);color:var(--ink)}
 dialog::backdrop{background:rgba(10,3,4,.9)}
 dialog img{display:block;max-width:100%;max-height:78vh;margin:0 auto;border-radius:4px}
 dialog div{display:flex;justify-content:space-between;gap:16px;padding:14px 4px;color:#fff}
-dialog a,dialog button{color:#fff;background:none;border:2px solid #fff;padding:8px 16px;font:600 1rem "Hanken Grotesk",sans-serif;text-decoration:none;cursor:pointer}
+dialog a,dialog button{color:#fff;background:none;border:2px solid #fff;padding:8px 16px;font:600 1rem var(--fb);text-decoration:none;cursor:pointer}
 dialog a:hover,dialog button:hover{background:var(--weft);border-color:var(--weft);color:#1d1113}
-#ld{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;align-items:flex-end;justify-content:flex-start;padding:24px;font:900 clamp(4rem,18vw,12rem)/1 Fraunces,serif;color:var(--acc);transition:transform .7s cubic-bezier(.7,0,.2,1)}
+#ld{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;align-items:flex-end;justify-content:flex-start;padding:24px;font:900 clamp(4rem,18vw,12rem)/1 var(--fh);color:var(--acc);transition:transform .7s cubic-bezier(.7,0,.2,1)}
 #ld.o{transform:translateY(-100%)}
 @media (max-width:820px){.hero .wrap{grid-template-columns:1fr}.pt{justify-self:start;width:min(80%,340px)}.row{grid-template-columns:1fr}nav div a:nth-child(n+3){display:none}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mq span{animation:none;padding-left:0}figure img{transition:none}}
@@ -217,7 +218,7 @@ dialog a:hover,dialog button:hover{background:var(--weft);border-color:var(--wef
 <h2>Let’s work together</h2>
 <a class="m" href="mailto:[[EMAIL]]">[[EMAIL]]</a>
 <div class="s">[[LINKS]]</div>
-<p class="q">[[QUOTE]]</p>
+<p class="q">[[QUOTE]]</p>[[CREDIT]]
 </div>
 </footer>
 <dialog id="dg" aria-label="Design preview"><img alt=""><div><a target="_blank" rel="noopener">View on Behance</a><button type="button">Close</button></div></dialog>

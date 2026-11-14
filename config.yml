@@ -20,13 +20,30 @@ collections:
         format: json
         fields:
           - {label: Website address (no slash at the end), name: site_url, widget: string}
+          - label: Fonts
+            name: fonts
+            widget: object
+            required: false
+            fields:
+              - {label: Main text font (empty = Li Subha Letterpress), name: body, widget: select, options: ["Li Subha Letterpress", "Fraunces", "Hanken Grotesk", "Special Elite", "Courier Prime", "Playfair Display", "Merriweather", "Inter", "Noto Serif Bengali", "Noto Sans Bengali"], required: false}
+              - {label: "Main text font, other: type any Google Fonts name or the name of an uploaded font (beats the choice above)", name: body_other, widget: string, required: false}
+              - {label: Headings and name font (empty = Li Subha Letterpress), name: headings, widget: select, options: ["Li Subha Letterpress", "Fraunces", "Hanken Grotesk", "Special Elite", "Courier Prime", "Playfair Display", "Merriweather", "Inter", "Noto Serif Bengali", "Noto Sans Bengali"], required: false}
+              - {label: "Headings font, other: type any Google Fonts name or the name of an uploaded font (beats the choice above)", name: headings_other, widget: string, required: false}
+          - label: Uploaded fonts (add your own font files here)
+            name: custom_fonts
+            widget: list
+            required: false
+            fields:
+              - {label: "Font name (you type this name in the Fonts boxes, or inside text like {Name|words})", name: name, widget: string}
+              - {label: Font file (.ttf .otf .woff2), name: file, widget: file}
+          - {label: "Credit line at the very bottom of the page (leave empty for none)", name: font_credit, widget: string, required: false}
           - label: Top of the page (hero)
             name: hero
             widget: object
             fields:
               - {label: Big name, name: title, widget: string}
               - {label: Line under the name, name: subtitle, widget: string}
-              - {label: Intro text, name: intro, widget: text}
+              - {label: Intro text, name: intro, widget: text, hint: "To show some words in another font, type {Font Name|those words}"}
               - {label: Portrait photo, name: image, widget: image}
               - {label: Portrait description (for screen readers), name: image_alt, widget: string}
           - label: About section
@@ -37,7 +54,7 @@ collections:
                 name: headline
                 widget: list
                 field: {label: Word, name: w, widget: string}
-              - {label: Short text, name: text, widget: text}
+              - {label: Short text, name: text, widget: text, hint: "To show some words in another font, type {Font Name|those words}"}
               - label: Photos
                 name: photos
                 widget: list
@@ -45,7 +62,7 @@ collections:
                   - {label: Photo, name: image, widget: image}
                   - {label: Description (for screen readers), name: alt, widget: string}
                   - {label: Caption, name: caption, widget: string}
-          - {label: Career objective (above experience), name: objective, widget: text}
+          - {label: Career objective (above experience), name: objective, widget: text, hint: "To show some words in another font, type {Font Name|those words}"}
           - {label: Dyeing machine caption, name: dye_caption, widget: string}
           - {label: Supply chain animation caption, name: supply_caption, widget: string, required: false}
           - label: Experience and leadership
@@ -63,7 +80,7 @@ collections:
               - label: Bullet points (use *word* for italics)
                 name: bullets
                 widget: list
-                field: {label: Bullet, name: b, widget: text}
+                field: {label: Bullet, name: b, widget: text, hint: "To show some words in another font, type {Font Name|those words}"}
               - {label: Link text, name: link_text, widget: string, required: false}
               - {label: Link address, name: link_url, widget: string, required: false}
           - label: Leadership and extracurricular activities
@@ -78,7 +95,7 @@ collections:
               - label: Bullet points (use *word* for italics)
                 name: bullets
                 widget: list
-                field: {label: Bullet, name: b, widget: text}
+                field: {label: Bullet, name: b, widget: text, hint: "To show some words in another font, type {Font Name|those words}"}
               - {label: Link text, name: link_text, widget: string, required: false}
               - {label: Link address, name: link_url, widget: string, required: false}
               - label: Photos
