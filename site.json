@@ -273,5 +273,51 @@
     "intro": "A BUTEX graduate exploring the intersection of technology, business and creativity. Interested in marketing, supply chain, operations and business strategy, with a passion for literature, visual arts and creative expression. Always curious, always exploring beyond disciplines.",
     "image": "/images/hero.jpg",
     "image_alt": "Black and white portrait of Mehshan in a checked shirt"
-  }
+  },
+  "section_order": [
+    "me",
+    "about",
+    "education",
+    "activities",
+    "skills",
+    "training-projects",
+    "design"
+  ],
+  "section_settings": [
+    {
+      "id": "me",
+      "title": "About",
+      "visible": true
+    },
+    {
+      "id": "about",
+      "title": "Experience",
+      "visible": true
+    },
+    {
+      "id": "education",
+      "title": "Education",
+      "visible": true
+    },
+    {
+      "id": "activities",
+      "title": "Leadership and extracurricular activities",
+      "visible": true
+    },
+    {
+      "id": "skills",
+      "title": "Skills",
+      "visible": true
+    },
+    {
+      "id": "training-projects",
+      "title": "Training and Project Work",
+      "visible": true
+    },
+    {
+      "id": "design",
+      "title": "Design",
+      "visible": true
+    }
+  ]
 }

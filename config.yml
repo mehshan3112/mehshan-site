@@ -20,6 +20,54 @@ collections:
         format: json
         fields:
           - {label: Website address (no slash at the end), name: site_url, widget: string}
+          - label: Section order and visibility
+            name: section_order
+            widget: list
+            required: false
+            hint: Drag items to change the order. Built-in IDs: me, about, education, activities, skills, design. Add custom section IDs after these.
+            field: {label: Section ID, name: id, widget: string}
+          - label: Section title and visibility overrides
+            name: section_settings
+            widget: list
+            required: false
+            fields:
+              - {label: Section ID, name: id, widget: string, required: false}
+              - {label: Navigation and section title, name: title, widget: string, required: false}
+              - {label: Visible, name: visible, widget: boolean, default: true, required: false}
+          - label: Custom sections
+            name: custom_sections
+            widget: list
+            required: false
+            fields:
+              - {label: Unique ID (lowercase, e.g. publications), name: id, widget: string, required: false}
+              - {label: Section title, name: title, widget: string, required: false}
+              - {label: Show section, name: visible, widget: boolean, default: true, required: false}
+              - label: Content blocks
+                name: blocks
+                widget: list
+                required: false
+                fields:
+                  - {label: Block type, name: type, widget: select, options: [heading, text, image, gallery, list, link], default: text, required: false}
+                  - {label: Heading, name: heading, widget: string, required: false}
+                  - {label: Text, name: text, widget: text, required: false}
+                  - {label: Image, name: image, widget: image, required: false}
+                  - {label: Image description, name: alt, widget: string, required: false}
+                  - {label: Image caption, name: caption, widget: string, required: false}
+                  - label: List items
+                    name: items
+                    widget: list
+                    required: false
+                    field: {label: Item, name: item, widget: string, required: false}
+                  - label: Gallery images
+                    name: images
+                    widget: list
+                    required: false
+                    fields:
+                      - {label: Image, name: image, widget: image, required: false}
+                      - {label: Image description, name: alt, widget: string, required: false}
+                      - {label: Caption, name: caption, widget: string, required: false}
+                  - {label: Link label, name: label, widget: string, required: false}
+                  - {label: Link URL, name: url, widget: string, required: false}
           - label: Fonts
             name: fonts
             widget: object
@@ -137,6 +185,24 @@ collections:
             name: training
             widget: list
             field: {label: Program, name: p, widget: string}
+          - label: Training details and certificate previews
+            name: training_details
+            widget: list
+            required: false
+            fields:
+              - {label: Training title, name: title, widget: string, required: false}
+              - {label: Provider, name: provider, widget: string, required: false}
+              - {label: Date, name: date, widget: string, required: false}
+              - {label: Certificate image, name: certificate, widget: image, required: false}
+              - {label: External link, name: link, widget: string, required: false}
+              - {label: Link label, name: link_text, widget: string, required: false}
+          - label: Project work entries
+            name: project_work
+            widget: list
+            required: false
+            fields:
+              - {label: Project title, name: title, widget: string, required: false}
+              - {label: Description, name: text, widget: text, required: false}
           - label: Project work
             name: project
             widget: object
