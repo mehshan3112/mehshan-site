@@ -19,30 +19,19 @@ collections:
         file: site.json
         format: json
         fields:
-          - {label: Website address (no slash at the end), name: site_url, widget: string}
-          - label: Section order and visibility
-            name: section_order
+          - {label: Website address (no slash at the end), name: site_url, widget: string, required: false}
+          - label: Page sections — reorder, rename and show or hide
+            name: sections
             widget: list
             required: false
-            hint: "Drag items to change the order. Built-in IDs: me, about, education, activities, skills, design. Add custom section IDs after these."
-            field: {label: Section ID, name: id, widget: string}
-          - label: Section title and visibility overrides
-            name: section_settings
-            widget: list
-            required: false
+            hint: "Each row is one complete page section. Drag a row to move the whole section. Built-in IDs: me, about, education, activities, skills, training-projects, design. For a new section, enter a new ID and add content blocks."
             fields:
-              - {label: Section ID, name: id, widget: string, required: false}
-              - {label: Navigation and section title, name: title, widget: string, required: false}
-              - {label: Visible, name: visible, widget: boolean, default: true, required: false}
-          - label: Custom sections
-            name: custom_sections
-            widget: list
-            required: false
-            fields:
-              - {label: Unique ID (lowercase, e.g. publications), name: id, widget: string, required: false}
-              - {label: Section title, name: title, widget: string, required: false}
-              - {label: Show section, name: visible, widget: boolean, default: true, required: false}
-              - label: Content blocks
+              - {label: Section ID (do not change built-in IDs), name: id, widget: string, required: false}
+              - {label: Navigation and section heading, name: title, widget: string, required: false}
+              - {label: Show this section, name: visible, widget: boolean, default: true, required: false}
+              - {label: Desktop top spacing override (px, optional), name: desktop_spacing, widget: number, value_type: int, min: 0, max: 200, required: false}
+              - {label: Mobile top spacing override (px, optional), name: mobile_spacing, widget: number, value_type: int, min: 0, max: 160, required: false}
+              - label: Custom content blocks (for new sections)
                 name: blocks
                 widget: list
                 required: false
@@ -77,49 +66,67 @@ collections:
               - {label: "Main text font, other: type any Google Fonts name or the name of an uploaded font (beats the choice above)", name: body_other, widget: string, required: false}
               - {label: Headings and name font (empty = Li Subha Letterpress), name: headings, widget: select, options: ["Li Subha Letterpress", "Fraunces", "Hanken Grotesk", "Special Elite", "Courier Prime", "Playfair Display", "Merriweather", "Inter", "Noto Serif Bengali", "Noto Sans Bengali"], required: false}
               - {label: "Headings font, other: type any Google Fonts name or the name of an uploaded font (beats the choice above)", name: headings_other, widget: string, required: false}
+          - label: Typography and spacing
+            name: typography
+            widget: object
+            required: false
+            fields:
+              - {label: Desktop body font size (px), name: body_size, widget: number, value_type: int, min: 12, max: 24, required: false}
+              - {label: Mobile body font size (px), name: mobile_body_size, widget: number, value_type: int, min: 12, max: 22, required: false}
+              - {label: Body font weight, name: body_weight, widget: select, options: [300, 400, 500, 600, 700], required: false}
+              - {label: Line height, name: line_height, widget: number, value_type: float, min: 1.2, max: 2.2, step: 0.05, required: false}
+              - {label: Heading size (px), name: heading_size, widget: number, value_type: int, min: 28, max: 72, required: false}
+              - {label: Heading font weight, name: heading_weight, widget: select, options: [500, 600, 700, 800, 900], required: false}
+              - {label: Desktop section top spacing (px), name: section_spacing, widget: number, value_type: int, min: 24, max: 180, required: false}
+              - {label: Mobile section top spacing (px), name: mobile_section_spacing, widget: number, value_type: int, min: 20, max: 120, required: false}
           - label: Uploaded fonts (add your own font files here)
             name: custom_fonts
             widget: list
             required: false
             fields:
-              - {label: "Font name (you type this name in the Fonts boxes, or inside text like {Name|words})", name: name, widget: string}
-              - {label: Font file (.ttf .otf .woff2), name: file, widget: file}
+              - {label: "Font name (you type this name in the Fonts boxes, or inside text like {Name|words})", name: name, widget: string, required: false}
+              - {label: Font file (.ttf .otf .woff2), name: file, widget: file, required: false}
           - {label: "Credit line at the very bottom of the page (leave empty for none)", name: font_credit, widget: string, required: false}
           - label: Top of the page (hero)
             name: hero
+            required: false
             widget: object
             fields:
-              - {label: Big name, name: title, widget: string}
-              - {label: Line under the name, name: subtitle, widget: string}
-              - {label: Intro text, name: intro, widget: text, hint: "To show some words in another font, type {Font Name|those words}"}
-              - {label: Portrait photo, name: image, widget: image}
-              - {label: Portrait description (for screen readers), name: image_alt, widget: string}
+              - {label: Big name, name: title, widget: string, required: false}
+              - {label: Line under the name, name: subtitle, widget: string, required: false}
+              - {label: Intro text, name: intro, widget: text, hint: "To show some words in another font, type {Font Name|those words}", required: false}
+              - {label: Portrait photo, name: image, widget: image, required: false}
+              - {label: Portrait description (for screen readers), name: image_alt, widget: string, required: false}
           - label: About section
             name: about
+            required: false
             widget: object
             fields:
               - label: Big words (one per line)
                 name: headline
+                required: false
                 widget: list
-                field: {label: Word, name: w, widget: string}
-              - {label: Short text, name: text, widget: text, hint: "To show some words in another font, type {Font Name|those words}"}
+                field: {label: Word, name: w, widget: string, required: false}
+              - {label: Short text, name: text, widget: text, hint: "To show some words in another font, type {Font Name|those words}", required: false}
               - label: Photos
                 name: photos
+                required: false
                 widget: list
                 fields:
-                  - {label: Photo, name: image, widget: image}
-                  - {label: Description (for screen readers), name: alt, widget: string}
-                  - {label: Caption, name: caption, widget: string}
-          - {label: Career objective (above experience), name: objective, widget: text, hint: "To show some words in another font, type {Font Name|those words}"}
-          - {label: Dyeing machine caption, name: dye_caption, widget: string}
+                  - {label: Photo, name: image, widget: image, required: false}
+                  - {label: Description (for screen readers), name: alt, widget: string, required: false}
+                  - {label: Caption, name: caption, widget: string, required: false}
+          - {label: Career objective (above experience), name: objective, widget: text, hint: "To show some words in another font, type {Font Name|those words}", required: false}
+          - {label: Dyeing machine caption, name: dye_caption, widget: string, required: false}
           - {label: Supply chain animation caption, name: supply_caption, widget: string, required: false}
           - label: Experience and leadership
             name: experience
+            required: false
             widget: list
             fields:
-              - {label: Role, name: role, widget: string}
-              - {label: Organisation, name: org, widget: string}
-              - {label: Dates, name: dates, widget: string}
+              - {label: Role, name: role, widget: string, required: false}
+              - {label: Organisation, name: org, widget: string, required: false}
+              - {label: Dates, name: dates, widget: string, required: false}
               - {label: Place, name: place, widget: string, required: false}
               - {label: Letters shown if there is no logo, name: initials, widget: string, required: false}
               - {label: Logo, name: logo, widget: image, required: false}
@@ -127,23 +134,26 @@ collections:
               - {label: Animation beside this entry (overrides the old setting), name: animation, widget: select, options: ["dyeing machine", "supply chain", "none"], required: false}
               - label: Bullet points (use *word* for italics)
                 name: bullets
+                required: false
                 widget: list
-                field: {label: Bullet, name: b, widget: text, hint: "To show some words in another font, type {Font Name|those words}"}
+                field: {label: Bullet, name: b, widget: text, hint: "To show some words in another font, type {Font Name|those words}", required: false}
               - {label: Link text, name: link_text, widget: string, required: false}
               - {label: Link address, name: link_url, widget: string, required: false}
           - label: Leadership and extracurricular activities
             name: activities
+            required: false
             widget: list
             fields:
-              - {label: Role, name: role, widget: string}
-              - {label: Organisation, name: org, widget: string}
-              - {label: Dates, name: dates, widget: string}
+              - {label: Role, name: role, widget: string, required: false}
+              - {label: Organisation, name: org, widget: string, required: false}
+              - {label: Dates, name: dates, widget: string, required: false}
               - {label: Letters shown if there is no logo, name: initials, widget: string, required: false}
               - {label: Logo, name: logo, widget: image, required: false}
               - label: Bullet points (use *word* for italics)
                 name: bullets
+                required: false
                 widget: list
-                field: {label: Bullet, name: b, widget: text, hint: "To show some words in another font, type {Font Name|those words}"}
+                field: {label: Bullet, name: b, widget: text, hint: "To show some words in another font, type {Font Name|those words}", required: false}
               - {label: Link text, name: link_text, widget: string, required: false}
               - {label: Link address, name: link_url, widget: string, required: false}
               - label: Photos
@@ -151,16 +161,17 @@ collections:
                 widget: list
                 required: false
                 fields:
-                  - {label: Photo, name: image, widget: image}
+                  - {label: Photo, name: image, widget: image, required: false}
                   - {label: Caption, name: caption, widget: string, required: false}
                   - {label: Picture fit (whole picture shows everything, crop to fill fills the box), name: fit, widget: select, options: ["whole picture", "crop to fill"], required: false}
           - label: Education
             name: education
+            required: false
             widget: list
             fields:
-              - {label: Degree, name: degree, widget: string}
-              - {label: School, name: school, widget: string}
-              - {label: Dates, name: dates, widget: string}
+              - {label: Degree, name: degree, widget: string, required: false}
+              - {label: School, name: school, widget: string, required: false}
+              - {label: Dates, name: dates, widget: string, required: false}
               - {label: Place, name: place, widget: string, required: false}
               - {label: Logo (upload the institution's logo), name: logo, widget: image, required: false}
               - {label: Letters shown if there is no logo (empty = automatic), name: initials, widget: string, required: false}
@@ -169,23 +180,21 @@ collections:
                 name: bullets
                 widget: list
                 required: false
-                field: {label: Detail, name: d, widget: text}
+                field: {label: Detail, name: d, widget: text, required: false}
               - {label: Link text, name: link_text, widget: string, required: false}
               - {label: Link address, name: link_url, widget: string, required: false}
           - label: Skills
             name: skills
+            required: false
             widget: list
             fields:
-              - {label: Group title, name: title, widget: string}
+              - {label: Group title, name: title, widget: string, required: false}
               - label: Items
                 name: items
+                required: false
                 widget: list
-                field: {label: Item, name: i, widget: string}
-          - label: Training programs
-            name: training
-            widget: list
-            field: {label: Program, name: p, widget: string}
-          - label: Training details and certificate previews
+                field: {label: Item, name: i, widget: string, required: false}
+          - label: Training (certificate appears only on hover)
             name: training_details
             widget: list
             required: false
@@ -196,40 +205,37 @@ collections:
               - {label: Certificate image, name: certificate, widget: image, required: false}
               - {label: External link, name: link, widget: string, required: false}
               - {label: Link label, name: link_text, widget: string, required: false}
-          - label: Project work entries
+          - label: Project Work
             name: project_work
             widget: list
             required: false
             fields:
               - {label: Project title, name: title, widget: string, required: false}
               - {label: Description, name: text, widget: text, required: false}
-          - label: Project work
-            name: project
-            widget: object
-            fields:
-              - {label: Title, name: title, widget: string}
-              - {label: Text, name: text, widget: text}
           - label: Design section
             name: designs
+            required: false
             widget: object
             fields:
-              - {label: Intro text, name: intro, widget: text}
-              - {label: Behance profile link, name: behance, widget: string}
+              - {label: Intro text, name: intro, widget: text, required: false}
+              - {label: Behance profile link, name: behance, widget: string, required: false}
               - label: Designs (drag to reorder)
                 name: items
+                required: false
                 widget: list
                 fields:
-                  - {label: Title, name: title, widget: string}
-                  - {label: Type (Poster, Event banner...), name: kind, widget: string}
-                  - {label: Behance project link, name: link, widget: string}
-                  - {label: Image, name: image, widget: image}
+                  - {label: Title, name: title, widget: string, required: false}
+                  - {label: Type (Poster, Event banner...), name: kind, widget: string, required: false}
+                  - {label: Behance project link, name: link, widget: string, required: false}
+                  - {label: Image, name: image, widget: image, required: false}
           - label: Contact
             name: contact
+            required: false
             widget: object
             fields:
-              - {label: Email, name: email, widget: string}
-              - {label: LinkedIn link, name: linkedin, widget: string}
-              - {label: Behance link, name: behance, widget: string}
-              - {label: Facebook link, name: facebook, widget: string}
-              - {label: Quote at the bottom, name: quote, widget: string}
-              - {label: Quote author, name: quote_author, widget: string}
+              - {label: Email, name: email, widget: string, required: false}
+              - {label: LinkedIn link, name: linkedin, widget: string, required: false}
+              - {label: Behance link, name: behance, widget: string, required: false}
+              - {label: Facebook link, name: facebook, widget: string, required: false}
+              - {label: Quote at the bottom, name: quote, widget: string, required: false}
+              - {label: Quote author, name: quote_author, widget: string, required: false}

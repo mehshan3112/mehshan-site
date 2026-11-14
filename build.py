@@ -70,17 +70,24 @@ def skills():
     return '<section id="skills"><h2>Skills</h2><div class="cols" style="margin-top:36px">' + g + '</div></section>'
 
 def training_projects():
-    training = c.get('training_details', []) or [{'title': item} for item in c.get('training', [])]
-    trows = ''
+    training = c.get("training_details", [])
+    trows = ""
     for x in training:
-        title = f(x.get('title', ''))
-        meta = ' · '.join(v for v in [f(x.get('provider', '')), f(x.get('date', ''))] if v)
-        cert = '<span class="cert-preview"><img src="' + img(x['certificate']) + '" alt="' + e(x.get('title') or 'Certificate') + '"></span>' if x.get('certificate') else ''
-        link = '<p><a href="' + e(x['link']) + '">' + f(x.get('link_text') or 'View details') + '</a></p>' if x.get('link') else ''
-        if title or meta or cert or link: trows += '<li class="training-item">' + cert + '<div><b>' + title + '</b>' + ('<small>' + meta + '</small>' if meta else '') + link + '</div></li>'
-    projects = c.get('project_work') or ([c.get('project', {})] if c.get('project') else [])
-    prows = ''.join('<article class="project-item">' + ('<h3>' + f(p['title']) + '</h3>' if p.get('title') else '') + ('<p>' + f(p['text']) + '</p>' if p.get('text') else '') + '</article>' for p in projects if p.get('title') or p.get('text'))
-    return '<section id="training-projects"><div class="tp-grid"><div><h2>Training</h2><ul class="training-list">' + trows + '</ul></div><div><h2>Project Work</h2>' + prows + '</div></div></section>'
+        title = f(x.get("title", ""))
+        provider = f(x.get("provider", ""))
+        date = f(x.get("date", ""))
+        meta = " · ".join(v for v in [provider, date] if v)
+        cert_attr = ' data-cert="' + img(x["certificate"]) + '"' if x.get("certificate") else ""
+        link = f'<p><a href="{e(x["link"])}">{f(x.get("link_text") or "View details")}</a></p>' if x.get("link") else ""
+        if title or meta or link:
+            trows += f'<li class="training-item"{cert_attr} tabindex="0"><div><b>{title}</b>{f("<small>"+meta+"</small>") if meta else ""}{link}</div></li>'
+    projects = c.get("project_work", [])
+    prows = ""
+    for p in projects:
+        if p.get("title") or p.get("text"):
+            prows += f'<article class="project-item">{f("<h3>"+p["title"]+"</h3>") if p.get("title") else ""}{f("<p>"+p["text"]+"</p>") if p.get("text") else ""}</article>'
+    return f'<section id="training-projects"><div class="tp-grid"><div><h2>Training</h2><ul class="training-list">{trows}</ul></div><div><h2>Project Work</h2>{prows}</div></div></section>'
+
 def design():
     d = c["designs"]; it = d["items"]; n = len(it)
     lst = "".join(f'<li><button type="button" data-i="{i}"><span class="n">#{i+1:04d}/{n}</span><span class="t">{f(x["title"])}</span><span class="k">{f(x["kind"])}</span></button></li>' for i, x in enumerate(it))
@@ -113,11 +120,22 @@ def training_projects():
     return f'<section id="training-projects"><div class="tp-grid"><div><h2>Training</h2><ul class="training-list">{trows}</ul></div><div><h2>Project Work</h2>{prows}</div></div></section>'
 
 def build_section_layout(parts):
-    labels = {'me': 'About', 'about': 'Experience', 'education': 'Education', 'activities': 'Leadership', 'skills': 'Skills', 'training-projects': 'Training & Projects', 'design': 'Design'}
-    settings = {x.get('id'): x for x in c.get('section_settings', [])}
-    for section in c.get('custom_sections', []):
+    labels = {'me': 'About', 'about': 'Experience', 'education': 'Education', 'activities': 'Leadership', 'skills': 'Skills', 'training-projects': 'Training & Project Work', 'design': 'Design'}
+    registry = c.get('sections')
+    if not registry:
+        legacy_settings = {x.get('id'): x for x in c.get('section_settings', [])}
+        old_order = c.get('section_order') or ['me', 'about', 'education', 'activities', 'skills', 'training-projects', 'design']
+        registry = [{'id': sid, **legacy_settings.get(sid, {})} for sid in old_order]
+
+    # Custom sections live in the same ordered list as built-in sections.
+    for section in registry:
+        if not isinstance(section, dict):
+            continue
         sid = re.sub(r'[^a-z0-9-]+', '-', str(section.get('id', 'custom')).lower()).strip('-') or 'custom'
-        labels[sid] = section.get('title') or 'Section'
+        if sid in parts:
+            continue
+        title = section.get('title') or 'Section'
+        labels[sid] = title
         if not section.get('visible', True):
             continue
         body = ''
@@ -136,14 +154,30 @@ def build_section_layout(parts):
             elif kind == 'link' and block.get('url'):
                 body += '<p><a href="' + e(block['url']) + '">' + f(block.get('label') or block['url']) + '</a></p>'
         if body:
-            parts[sid] = '<section id="' + e(sid) + '"><h2>' + f(section.get('title') or 'Section') + '</h2>' + body + '</section>'
-    order = c.get('section_order') or ['me', 'about', 'education', 'activities', 'skills', 'training-projects', 'design']
-    order = list(order) + [sid for sid in parts if sid not in order]
+            parts[sid] = '<section id="' + e(sid) + '"><h2>' + f(title) + '</h2>' + body + '</section>'
+
+    # Existing older data is upgraded transparently; the current editor stores one ordered list.
+    settings = {x.get('id'): x for x in c.get('section_settings', [])}
+    ordered_ids = [x.get('id') if isinstance(x, dict) else x for x in registry]
+    ordered_ids += [sid for sid in parts if sid not in ordered_ids]
+    registry_by_id = {x.get('id'): x for x in registry if isinstance(x, dict)}
     output, nav = [], []
-    for sid in order:
-        item = settings.get(sid, {})
+    for sid in ordered_ids:
+        item = registry_by_id.get(sid, settings.get(sid, {}))
         if sid in parts and item.get('visible', True) and parts[sid]:
-            output.append(parts[sid])
+            section_html = parts[sid]
+            style_bits = []
+            if item.get('desktop_spacing') is not None:
+                try: style_bits.append('--section-space:' + str(max(0, min(200, float(item['desktop_spacing'])))) + 'px')
+                except (TypeError, ValueError): pass
+            if item.get('mobile_spacing') is not None:
+                try: style_bits.append('--mobile-section-space:' + str(max(0, min(160, float(item['mobile_spacing'])))) + 'px')
+                except (TypeError, ValueError): pass
+            if style_bits:
+                section_html = re.sub(r'<section(?=\s)', '<section style="' + ';'.join(style_bits) + '"', section_html, count=1)
+            if item.get('title'):
+                section_html = re.sub(r'(<h2\b[^>]*>).*?(</h2>)', lambda m: m.group(1) + f(item['title']) + m.group(2), section_html, count=1)
+            output.append(section_html)
             nav.append('<a href="#' + e(sid) + '">' + e(item.get('title') or labels.get(sid, sid.title())) + '</a>')
     return '<div class="st"></div>'.join(output), ''.join(nav)
 
@@ -179,7 +213,18 @@ for name in sorted(used):
     elif k != "noto sans bengali":
         fam = GOOGLE.get(k, name.replace(" ", "+"))
         links.append('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=%s&display=swap">' % fam)
-fonts_html = "\n".join(links) + "\n<style>" + faces + ":root{--fb:'%s','Noto Sans Bengali',system-ui,sans-serif;--fh:'%s','Noto Sans Bengali',Georgia,serif}body{font-synthesis:none}</style>" % (body_font, head_font)
+ty = c.get("typography") or {}
+def tnum(key, default, lo, hi, integer=False):
+    try: value = float(ty.get(key, default))
+    except (TypeError, ValueError): value = default
+    value = max(lo, min(hi, value))
+    return str(int(value)) if integer else str(value)
+typography_css = ":root{--body-size:%spx;--mobile-body-size:%spx;--body-weight:%s;--line-height:%s;--heading-size:%spx;--heading-weight:%s;--section-space:%spx;--mobile-section-space:%spx}" % (
+    tnum("body_size",17,12,24,True), tnum("mobile_body_size",17,12,22,True),
+    tnum("body_weight",400,300,700,True), tnum("line_height",1.65,1.2,2.2),
+    tnum("heading_size",64,28,72,True), tnum("heading_weight",900,500,900,True),
+    tnum("section_spacing",84,24,180,True), tnum("mobile_section_spacing",60,20,120,True))
+fonts_html = "\n".join(links) + "\n<style>" + faces + ":root{--fb:'%s','Noto Sans Bengali',system-ui,sans-serif;--fh:'%s','Noto Sans Bengali',Georgia,serif}body{font-synthesis:none}" % (body_font, head_font) + typography_css + "</style>"
 credit = f'<p class="fc">{f(c["font_credit"])}</p>' if c.get("font_credit") else ""
 
 h, ct = c["hero"], c["contact"]

@@ -187,15 +187,6 @@
       ]
     }
   ],
-  "section_order": [
-    "me",
-    "about",
-    "education",
-    "activities",
-    "skills",
-    "training-projects",
-    "design"
-  ],
   "designs": {
     "intro": "Posters and event designs made for BUTEX Shahitya Sangsad and other student communities. Hover a title to preview it, click to open it large.",
     "behance": "https://www.behance.net/Mehshan_UL_Islam",
@@ -265,17 +256,6 @@
   "site_url": "https://mehshan.pages.dev",
   "dye_caption": "Colour by the ton.",
   "objective": "A BUTEX graduate interested in the intersection of technology, business and creativity. My professional interests are evolving towards marketing, supply chain management, operations and business strategy. I enjoy understanding how industries function, how businesses create value and how better decisions can improve processes and outcomes. Outside the professional sphere, I'm drawn to literature, visual arts, design and cultural initiatives. I believe curiosity should never be confined to one discipline, and neither should a career.",
-  "project": {
-    "title": "Data-driven approach to techpack automation",
-    "text": "Developed methods to verify grading rules, ensuring accuracy and consistency across production specifications."
-  },
-  "training": [
-    "Basics of Lean Thinking and Six Sigma in Supply Chain, Cambridge International Qualifications, UK",
-    "Customize Training Program on CNC Machine Operation, Tool and Technology Institute, BITAK",
-    "Sustainable Chemicals and Environmental Management in Textiles Industry, Deutsche Gesellschaft für Internationale Zusammenarbeit",
-    "Six Sigma Yellow Belt, 6sigmastudy -  The global certification body for six sigma certifications",
-    "Programming for Everybody (Getting Started with Python), University of Michigan"
-  ],
   "hero": {
     "title": "S.A.S Mehshan-UL-Islam",
     "subtitle": "An engineer by education, a curious mind by nature. From Dhaka.",
@@ -283,43 +263,6 @@
     "image": "/images/hero.jpg",
     "image_alt": "Black and white portrait of Mehshan in a checked shirt"
   },
-  "section_settings": [
-    {
-      "id": "me",
-      "title": "About",
-      "visible": true
-    },
-    {
-      "id": "about",
-      "title": "Experience",
-      "visible": true
-    },
-    {
-      "id": "education",
-      "title": "Education",
-      "visible": true
-    },
-    {
-      "id": "training-projects",
-      "title": "Training and Project Work",
-      "visible": true
-    },
-    {
-      "id": "skills",
-      "title": "Skills",
-      "visible": true
-    },
-    {
-      "id": "activities",
-      "title": "Leadership and extracurricular activities",
-      "visible": true
-    },
-    {
-      "id": "design",
-      "title": "Design",
-      "visible": true
-    }
-  ],
   "training_details": [
     {
       "title": "Sustainable Chemicals and Environmental Management in Textiles Industry",
@@ -347,6 +290,49 @@
     {
       "title": "Customize Training Program on CNC Machine Operation",
       "provider": "Tool and Technology Institute, BITAK"
+    }
+  ],
+  "sections": [
+    {
+      "id": "me",
+      "title": "About",
+      "visible": true
+    },
+    {
+      "id": "about",
+      "title": "Experience",
+      "visible": true
+    },
+    {
+      "id": "education",
+      "title": "Education",
+      "visible": true
+    },
+    {
+      "id": "activities",
+      "title": "Leadership and extracurricular activities",
+      "visible": true
+    },
+    {
+      "id": "skills",
+      "title": "Skills",
+      "visible": true
+    },
+    {
+      "id": "training-projects",
+      "title": "Training and Project Work",
+      "visible": true
+    },
+    {
+      "id": "design",
+      "title": "Design",
+      "visible": true
+    }
+  ],
+  "project_work": [
+    {
+      "title": "Data-driven approach to techpack automation",
+      "text": "Developed methods to verify grading rules, ensuring accuracy and consistency across production specifications."
     }
   ]
 }
