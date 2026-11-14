@@ -300,13 +300,13 @@
       "visible": true
     },
     {
-      "id": "skills",
-      "title": "Skills",
+      "id": "training-projects",
+      "title": "Training and Project Work",
       "visible": true
     },
     {
-      "id": "training-projects",
-      "title": "Training and Project Work",
+      "id": "skills",
+      "title": "Skills",
       "visible": true
     },
     {
