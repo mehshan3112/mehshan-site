@@ -24,7 +24,7 @@ collections:
             name: section_order
             widget: list
             required: false
-            hint: Drag items to change the order. Built-in IDs: me, about, education, activities, skills, design. Add custom section IDs after these.
+            hint: "Drag items to change the order. Built-in IDs: me, about, education, activities, skills, design. Add custom section IDs after these."
             field: {label: Section ID, name: id, widget: string}
           - label: Section title and visibility overrides
             name: section_settings
