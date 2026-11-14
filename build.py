@@ -115,6 +115,28 @@ def training_projects():
 def build_section_layout(parts):
     labels = {'me': 'About', 'about': 'Experience', 'education': 'Education', 'activities': 'Leadership', 'skills': 'Skills', 'training-projects': 'Training & Projects', 'design': 'Design'}
     settings = {x.get('id'): x for x in c.get('section_settings', [])}
+    for section in c.get('custom_sections', []):
+        sid = re.sub(r'[^a-z0-9-]+', '-', str(section.get('id', 'custom')).lower()).strip('-') or 'custom'
+        labels[sid] = section.get('title') or 'Section'
+        if not section.get('visible', True):
+            continue
+        body = ''
+        for block in section.get('blocks', []):
+            kind = block.get('type', 'text')
+            if kind == 'heading' and block.get('heading'):
+                body += '<h3>' + f(block['heading']) + '</h3>'
+            elif kind == 'text' and block.get('text'):
+                body += '<p>' + f(block['text']) + '</p>'
+            elif kind == 'image' and block.get('image'):
+                body += '<figure><img src="' + img(block['image']) + '" alt="' + e(block.get('alt', '')) + '">' + ('<figcaption>' + f(block.get('caption', '')) + '</figcaption>' if block.get('caption') else '') + '</figure>'
+            elif kind == 'gallery' and block.get('images'):
+                body += '<div class="custom-gallery">' + ''.join('<figure><img src="' + img(p['image']) + '" alt="' + e(p.get('alt', '')) + '">' + ('<figcaption>' + f(p.get('caption', '')) + '</figcaption>' if p.get('caption') else '') + '</figure>' for p in block['images'] if p.get('image')) + '</div>'
+            elif kind == 'list' and block.get('items'):
+                body += '<ul>' + ''.join('<li>' + f(v) + '</li>' for v in block['items'] if v) + '</ul>'
+            elif kind == 'link' and block.get('url'):
+                body += '<p><a href="' + e(block['url']) + '">' + f(block.get('label') or block['url']) + '</a></p>'
+        if body:
+            parts[sid] = '<section id="' + e(sid) + '"><h2>' + f(section.get('title') or 'Section') + '</h2>' + body + '</section>'
     order = c.get('section_order') or ['me', 'about', 'education', 'activities', 'skills', 'training-projects', 'design']
     order = list(order) + [sid for sid in parts if sid not in order]
     output, nav = [], []
@@ -123,20 +145,6 @@ def build_section_layout(parts):
         if sid in parts and item.get('visible', True) and parts[sid]:
             output.append(parts[sid])
             nav.append('<a href="#' + e(sid) + '">' + e(item.get('title') or labels.get(sid, sid.title())) + '</a>')
-    for section in c.get('custom_sections', []):
-        sid = re.sub(r'[^a-z0-9-]+', '-', str(section.get('id', 'custom')).lower()).strip('-') or 'custom'
-        if not section.get('visible', True): continue
-        body = ''
-        for block in section.get('blocks', []):
-            kind = block.get('type', 'text')
-            if kind == 'heading' and block.get('heading'): body += '<h3>' + f(block['heading']) + '</h3>'
-            elif kind == 'text' and block.get('text'): body += '<p>' + f(block['text']) + '</p>'
-            elif kind == 'image' and block.get('image'): body += '<figure><img src="' + img(block['image']) + '" alt="' + e(block.get('alt', '')) + '">' + ('<figcaption>' + f(block.get('caption', '')) + '</figcaption>' if block.get('caption') else '') + '</figure>'
-            elif kind == 'list' and block.get('items'): body += '<ul>' + ''.join('<li>' + f(v) + '</li>' for v in block['items'] if v) + '</ul>'
-            elif kind == 'link' and block.get('url'): body += '<p><a href="' + e(block['url']) + '">' + f(block.get('label') or block['url']) + '</a></p>'
-        if body:
-            output.append('<section id="' + e(sid) + '"><h2>' + f(section.get('title') or 'Section') + '</h2>' + body + '</section>')
-            nav.append('<a href="#' + e(sid) + '">' + e(section.get('title') or 'Section') + '</a>')
     return '<div class="st"></div>'.join(output), ''.join(nav)
 
 # ---------------- fonts ----------------
