@@ -46,17 +46,20 @@
     {
       "degree": "B.Sc. in Textile Engineering",
       "school": "Bangladesh University of Textiles",
-      "dates": "2019 – 2024"
+      "dates": "2019 – 2024",
+      "logo": "/images/artboard-4d-g-bn.png"
     },
     {
       "degree": "HSC, Science",
       "school": "Dhaka Residential Model College",
-      "dates": "2016 – 2018"
+      "dates": "2016 – 2018",
+      "logo": "/images/artboard-2d-g-bn.png"
     },
     {
       "degree": "SSC, Science",
       "school": "Monipur High School",
-      "dates": "2014 – 2016"
+      "dates": "2014 – 2016",
+      "logo": "/images/artboard-5d-g-bn.png"
     }
   ],
   "experience": [
