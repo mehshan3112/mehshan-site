@@ -74,6 +74,8 @@ jobs:
               if no_cert:
                   title = no_cert[0].get("title", "")
                   assert title
-                  assert f'<li class="training-item" tabindex="0"><div><b>{title}</b>' in page
+                  row = next(line for line in page.split("<li") if 'class="training-item"' in line and title in line)
+                  assert "data-cert=" not in row
+                  assert "cert-preview" not in row
               print("Section reorder, hide/show, rename, custom content and hover-only certificates passed")
           PY
