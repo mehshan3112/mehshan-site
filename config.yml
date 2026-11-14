@@ -24,45 +24,12 @@ collections:
             name: sections
             widget: list
             required: false
-            hint: "Each row is one complete page section. Drag the row to move the whole section. Built-in IDs: me, about, education, activities, skills, training-projects, design."
+            hint: "Each row is one complete page section. Drag a row to move the whole section. Built-in IDs: me, about, education, activities, skills, training-projects, design. For a new section, enter a new ID and add content blocks below."
             fields:
               - {label: Section ID (do not change built-in IDs), name: id, widget: string, required: false}
               - {label: Navigation and section heading, name: title, widget: string, required: false}
               - {label: Show this section, name: visible, widget: boolean, default: true, required: false}
-          - label: Custom section content
-            name: custom_sections
-            widget: list
-            required: false
-            hint: "For each custom section, add its ID to Page sections above, then add its content blocks here using the same ID."
-            fields:
-              - {label: Section ID (must match Page sections), name: id, widget: string, required: false}
-              - label: Content blocks
-                name: blocks
-                widget: list
-                required: false
-                fields:
-                  - {label: Block type, name: type, widget: select, options: [heading, text, image, gallery, list, link], default: text, required: false}
-                  - {label: Heading, name: heading, widget: string, required: false}
-                  - {label: Text, name: text, widget: text, required: false}
-                  - {label: Image, name: image, widget: image, required: false}
-                  - {label: Image description, name: alt, widget: string, required: false}
-                  - {label: Image caption, name: caption, widget: string, required: false}
-                  - label: List items
-                    name: items
-                    widget: list
-                    required: false
-                    field: {label: Item, name: item, widget: string, required: false}
-                  - label: Gallery images
-                    name: images
-                    widget: list
-                    required: false
-                    fields:
-                      - {label: Image, name: image, widget: image, required: false}
-                      - {label: Image description, name: alt, widget: string, required: false}
-                      - {label: Caption, name: caption, widget: string, required: false}
-                  - {label: Link label, name: label, widget: string, required: false}
-                  - {label: Link URL, name: url, widget: string, required: false}
-          - label: Fonts
+              - label: Fonts
             name: fonts
             widget: object
             required: false
