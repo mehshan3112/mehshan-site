@@ -47,7 +47,7 @@ collections:
                 widget: list
                 required: false
                 fields:
-                  - {label: Block type, name: type, widget: select, options: [heading, text, image, list, link], default: text, required: false}
+                  - {label: Block type, name: type, widget: select, options: [heading, text, image, gallery, list, link], default: text, required: false}
                   - {label: Heading, name: heading, widget: string, required: false}
                   - {label: Text, name: text, widget: text, required: false}
                   - {label: Image, name: image, widget: image, required: false}
@@ -58,6 +58,14 @@ collections:
                     widget: list
                     required: false
                     field: {label: Item, name: item, widget: string, required: false}
+                  - label: Gallery images
+                    name: images
+                    widget: list
+                    required: false
+                    fields:
+                      - {label: Image, name: image, widget: image, required: false}
+                      - {label: Image description, name: alt, widget: string, required: false}
+                      - {label: Caption, name: caption, widget: string, required: false}
                   - {label: Link label, name: label, widget: string, required: false}
                   - {label: Link URL, name: url, widget: string, required: false}
           - label: Fonts
