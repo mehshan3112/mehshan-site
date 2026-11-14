@@ -116,6 +116,7 @@ def build_section_layout(parts):
     labels = {'me': 'About', 'about': 'Experience', 'education': 'Education', 'activities': 'Leadership', 'skills': 'Skills', 'training-projects': 'Training & Projects', 'design': 'Design'}
     settings = {x.get('id'): x for x in c.get('section_settings', [])}
     order = c.get('section_order') or ['me', 'about', 'education', 'activities', 'skills', 'training-projects', 'design']
+    order = list(order) + [sid for sid in parts if sid not in order]
     output, nav = [], []
     for sid in order:
         item = settings.get(sid, {})
