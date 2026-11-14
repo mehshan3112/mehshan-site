@@ -331,6 +331,22 @@
       "provider": "UniAthena",
       "certificate": "/images/1792929254881.jpg",
       "link": "https://uniathena.com/verify/certificate?certID=6613-9640-0704"
+    },
+    {
+      "title": "Six Sigma Yellow Belt",
+      "provider": "6sigmastudy -  The global certification body for six sigma certifications",
+      "certificate": "/images/1793856286307.jpg",
+      "link": "https://www.linkedin.com/safety/go/?url=https%3A%2F%2Fc46e136a583f7e334124-ac22991740ab4ff17e21daf2ed577041.ssl.cf1.rackcdn.com%2FCertificate%2FSixSigmaYellowBelt-S.A.SMehshanUlIslam-1205718-20261105.pdf&urlhash=r6Yj&mt=sdFCKtQgLDFWzQqePy2SxLNpEdS-CrtLzmb9b7g0Ul2fX1bF410h0zameYiAKepwewRCPHIFtKtGPVdhWnpEFQLxZD14Yphk8_iFQt8a7YSPdW43hQlmMXbb-5BQzH9WObiBfnXjnkzCLpoyGYvFqTy-6q06gJWT8k-fe8tNBix3QWwHhF73685be4E&isSdui=true&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BlGQodP%2FwTjOzNFvuxB9DZQ%3D%3D"
+    },
+    {
+      "title": "Programming for Everybody (Getting Started with Python)",
+      "provider": "University of Michigan",
+      "certificate": "/images/certificate_landing_page~fyu5pbk24rbz.jpg",
+      "link": "https://www.coursera.org/account/accomplishments/verify/FYU5PBK24RBZ"
+    },
+    {
+      "title": "Customize Training Program on CNC Machine Operation",
+      "provider": "Tool and Technology Institute, BITAK"
     }
   ]
 }
