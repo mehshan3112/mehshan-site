@@ -1,0 +1,55 @@
+name: Verify usable CMS editor
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [fix/cms-editor-usable]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install YAML parser
+        run: python -m pip install PyYAML
+      - name: Validate CMS config and custom widget
+        run: |
+          python - <<'PY'
+          import yaml, pathlib
+          cfg = yaml.safe_load(pathlib.Path("config.yml").read_text())
+          entry = cfg["collections"][0]["files"][0]
+          assert entry["editor"]["preview"] is False
+          sections = next(x for x in entry["fields"] if x.get("name") == "sections")
+          assert sections["widget"] == "sectionmanager"
+          admin = pathlib.Path("index.html").read_text()
+          assert "CMS.registerWidget('sectionmanager'" in admin
+          assert "'↑ Up'" in admin and "'↓ Down'" in admin
+          print("CMS configuration and section manager registration passed")
+          PY
+      - name: Compile and build the website
+        run: |
+          python -m py_compile build.py
+          python build.py
+          test -s dist/index.html
+          test -s dist/admin/index.html
+      - name: Verify hover-only certificates, project markup and section registry
+        run: |
+          python - <<'PY'
+          import pathlib, re, json
+          src = pathlib.Path("build.py").read_text()
+          page = pathlib.Path("dist/index.html").read_text()
+          data = json.loads(pathlib.Path("site.json").read_text())
+          assert len(re.findall(r"^def training_projects\(\):", src, re.M)) == 1
+          assert 'data-cert="' in page
+          assert 'id="cert-hover"' in page
+          assert 'class="cert-preview"' not in page
+          assert "<h3>Data-driven approach to techpack automation</h3>" in page
+          assert "<p>Developed methods to verify grading rules" in page
+          assert "Project Work" in page
+          assert "ordered_ids += [sid for sid in parts" not in src
+          print("Training hover, project HTML and explicit section deletion checks passed")
+          PY
