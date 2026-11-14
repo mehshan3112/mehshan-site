@@ -8,5 +8,75 @@
 </head>
 <body>
 <script src="https://unpkg.com/decap-cms@3.1.10/dist/decap-cms.js"></script>
+<script>
+(function () {
+  if (!window.CMS || !window.createClass || !window.h) return;
+  var h = window.h, createClass = window.createClass;
+  function plain(value) { if (value && typeof value.toJS === 'function') return value.toJS(); return Array.isArray(value) ? value : []; }
+  function clone(value) { return JSON.parse(JSON.stringify(value || {})); }
+  var SectionManager = createClass({
+    update:function(next){this.props.onChange(next);},
+    patchSection:function(i,k,v){var a=clone(plain(this.props.value));a[i][k]=v;this.update(a);},
+    patchBlock:function(si,bi,k,v){var a=clone(plain(this.props.value));a[si].blocks=a[si].blocks||[];a[si].blocks[bi][k]=v;this.update(a);},
+    move:function(i,d){var a=clone(plain(this.props.value)),j=i+d;if(j<0||j>=a.length)return;var x=a[i];a.splice(i,1);a.splice(j,0,x);this.update(a);},
+    remove:function(i){var a=clone(plain(this.props.value));a.splice(i,1);this.update(a);},
+    addSection:function(){var a=clone(plain(this.props.value)),n=1,id='custom-section';while(a.some(function(x){return x.id===id;}))id='custom-section-'+(++n);a.push({id:id,title:'New section',visible:true,blocks:[]});this.update(a);},
+    addBlock:function(si){var a=clone(plain(this.props.value));a[si].blocks=a[si].blocks||[];a[si].blocks.push({type:'text',text:''});this.update(a);},
+    removeBlock:function(si,bi){var a=clone(plain(this.props.value));a[si].blocks.splice(bi,1);this.update(a);},
+    addGallery:function(si,bi){var a=clone(plain(this.props.value));a[si].blocks[bi].images=a[si].blocks[bi].images||[];a[si].blocks[bi].images.push({image:'',alt:'',caption:''});this.update(a);},
+    patchGallery:function(si,bi,pi,k,v){var a=clone(plain(this.props.value));a[si].blocks[bi].images[pi][k]=v;this.update(a);},
+    field:function(label,value,change,multi){return h('label',{className:'sm-field'},label,multi?h('textarea',{value:value||'',rows:3,onChange:function(e){change(e.target.value);}}):h('input',{type:'text',value:value||'',onChange:function(e){change(e.target.value);}}));},
+    numberField:function(label,value,change){return h('label',{className:'sm-field'},label,h('input',{type:'number',min:0,max:200,value:value==null?'':value,onChange:function(e){change(e.target.value===''?null:Number(e.target.value));}}));},
+    block:function(x,si,bi){
+      var self=this,type=x.type||'text',fs=[];
+      fs.push(h('label',{className:'sm-field'},'Block type',h('select',{value:type,onChange:function(e){self.patchBlock(si,bi,'type',e.target.value);}},['heading','text','image','gallery','list','link'].map(function(v){return h('option',{key:v,value:v},v);}))));
+      if(type==='heading')fs.push(this.field('Heading',x.heading,function(v){self.patchBlock(si,bi,'heading',v);}));
+      if(type==='text')fs.push(this.field('Text',x.text,function(v){self.patchBlock(si,bi,'text',v);},true));
+      if(type==='image'){fs.push(this.field('Image path or URL',x.image,function(v){self.patchBlock(si,bi,'image',v);}));fs.push(this.field('Alt text',x.alt,function(v){self.patchBlock(si,bi,'alt',v);}));fs.push(this.field('Caption',x.caption,function(v){self.patchBlock(si,bi,'caption',v);}));}
+      if(type==='list')fs.push(this.field('List items (one per line)',(x.items||[]).join('\n'),function(v){self.patchBlock(si,bi,'items',v.split('\n').filter(Boolean));},true));
+      if(type==='link'){fs.push(this.field('Link label',x.label,function(v){self.patchBlock(si,bi,'label',v);}));fs.push(this.field('Link URL',x.url,function(v){self.patchBlock(si,bi,'url',v);}));}
+      if(type==='gallery'){
+        (x.images||[]).forEach(function(pic,pi){fs.push(h('div',{className:'sm-gallery',key:pi},
+          self.field('Image path or URL',pic.image,function(v){self.patchGallery(si,bi,pi,'image',v);}),
+          self.field('Alt text',pic.alt,function(v){self.patchGallery(si,bi,pi,'alt',v);}),
+          self.field('Caption',pic.caption,function(v){self.patchGallery(si,bi,pi,'caption',v);}),
+          h('button',{type:'button',onClick:function(){var a=clone(plain(self.props.value));a[si].blocks[bi].images.splice(pi,1);self.update(a);}},'Remove image')));});
+        fs.push(h('button',{type:'button',onClick:function(){self.addGallery(si,bi);}},'Add gallery image'));
+      }
+      return h('div',{className:'sm-block',key:bi},h('div',{className:'sm-block-head'},h('strong',{},'Content block '+(bi+1)),h('button',{type:'button',onClick:function(){self.removeBlock(si,bi);}},'Remove block')),fs);
+    },
+    render:function(){
+      var self=this,rows=plain(this.props.value);
+      return h('div',{className:'section-manager'},
+        h('p',{className:'sm-help'},'Use Up / Down to move the entire section. The order here is the order on your website and in its navigation.'),
+        rows.map(function(row,i){
+          row=row||{};
+          var custom=['me','about','education','activities','skills','training-projects','design'].indexOf(row.id)<0;
+          return h('section',{className:'sm-row',key:row.id||i},
+            h('header',{className:'sm-row-head'},h('strong',{},(row.title||'Untitled section')+' · '+(row.id||'no ID')),
+              h('div',{className:'sm-actions'},
+                h('button',{type:'button',disabled:i===0,onClick:function(){self.move(i,-1);}},'↑ Up'),
+                h('button',{type:'button',disabled:i===rows.length-1,onClick:function(){self.move(i,1);}},'↓ Down'),
+                h('button',{type:'button',onClick:function(){self.remove(i);}},'Delete'))),
+            self.field('Section ID (lowercase, hyphens; keep built-in IDs unchanged)',row.id,function(v){self.patchSection(i,'id',v.toLowerCase().replace(/[^a-z0-9-]+/g,'-').replace(/^-+|-+$/g,''));}),
+            self.field('Section title / navigation label',row.title,function(v){self.patchSection(i,'title',v);}),
+            h('label',{className:'sm-toggle'},h('input',{type:'checkbox',checked:row.visible!==false,onChange:function(e){self.patchSection(i,'visible',e.target.checked);}}),' Show this section'),
+            self.numberField('Desktop section top spacing override (px, optional)',row.desktop_spacing,function(v){self.patchSection(i,'desktop_spacing',v);}),
+            self.numberField('Mobile section top spacing override (px, optional)',row.mobile_spacing,function(v){self.patchSection(i,'mobile_spacing',v);}),
+            custom?h('div',{className:'sm-blocks'},h('h4',{},'Custom section content'),(row.blocks||[]).map(function(x,bi){return self.block(x,i,bi);}),h('button',{type:'button',onClick:function(){self.addBlock(i);}},'+ Add content block')):null);
+        }),
+        h('button',{type:'button',className:'sm-add',onClick:this.addSection},'+ Add a new section'));
+    }
+  });
+  CMS.registerWidget('sectionmanager',SectionManager);
+})();
+</script>
+<style>
+.section-manager{font-family:system-ui,sans-serif;color:#20242a}.sm-help{font-size:13px;line-height:1.5;color:#59636e;margin:0 0 14px}
+.sm-row{border:1px solid #cbd2d9;border-radius:8px;padding:14px;margin:0 0 12px;background:#fff}.sm-row-head,.sm-block-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}.sm-row-head strong{font-size:14px}.sm-actions{display:flex;gap:6px}
+.section-manager button{border:1px solid #aeb8c2;border-radius:5px;padding:7px 10px;background:#f5f7f9;color:#20242a;cursor:pointer}.section-manager button:disabled{opacity:.35;cursor:not-allowed}
+.sm-field{display:block;font-size:12px;font-weight:600;margin:10px 0;color:#46515c}.sm-field input,.sm-field textarea,.sm-field select{display:block;width:100%;margin-top:5px;border:1px solid #bac4ce;border-radius:5px;padding:9px;font:14px system-ui,sans-serif;color:#17202a;background:#fff}
+.sm-toggle{display:flex;gap:8px;align-items:center;font-size:13px;margin:12px 0}.sm-blocks{margin-top:14px;padding:12px;background:#f6f7f8;border-radius:7px}.sm-block{padding:10px;border:1px solid #d7dce1;border-radius:6px;background:white;margin:9px 0}.sm-gallery{padding:8px;border-top:1px solid #e1e5e9}.sm-add{margin-top:8px;background:#e8f1ff!important;border-color:#91b5e8!important}
+</style>
 </body>
 </html>
