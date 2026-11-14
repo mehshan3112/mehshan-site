@@ -69,6 +69,17 @@ def skills():
     g = ''.join('<div><h3>' + f(s.get('title', '')) + '</h3><ul>' + ''.join('<li>' + f(i) + '</li>' for i in s.get('items', []) if i) + '</ul></div>' for s in groups if s.get('title') or s.get('items'))
     return '<section id="skills"><h2>Skills</h2><div class="cols" style="margin-top:36px">' + g + '</div></section>'
 
+def design():
+    d = c["designs"]; it = d["items"]; n = len(it)
+    lst = "".join(f'<li><button type="button" data-i="{i}"><span class="n">#{i+1:04d}/{n}</span><span class="t">{f(x["title"])}</span><span class="k">{f(x["kind"])}</span></button></li>' for i, x in enumerate(it))
+    figs = "".join(f'<figure><button type="button" data-l="{e(x["link"])}" data-t="{e(x["title"])}"><img src="{img(x["image"])}" alt="{e(x["title"])} {e(x["kind"]).lower()} by Mehshan" loading="lazy"></button><figcaption><b>{e(x["title"])}</b><span>{e(x["kind"])}</span></figcaption></figure>' for x in it)
+    return (f'<section id="design"><h2 style="letter-spacing:.3em">Design</h2><p class="sub" style="max-width:46em;margin-top:0">{f(d["intro"])}</p>'
+            f'<ol class="wl">{lst}</ol><div id="pv" aria-hidden="true"><img alt=""></div>'
+            f'<p class="sub" style="margin:56px 0 18px">All pieces, in one strip. Scroll sideways.</p><div class="strip">{figs}</div>'
+            f'<p style="margin-top:12px"><a class="btn" href="{e(d["behance"])}">Full portfolio on Behance</a></p></section>')
+
+
+
 def training_projects():
     training = c.get("training_details", [])
     trows = ""
