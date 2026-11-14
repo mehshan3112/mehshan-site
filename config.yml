@@ -29,6 +29,8 @@ collections:
               - {label: Section ID (do not change built-in IDs), name: id, widget: string, required: false}
               - {label: Navigation and section heading, name: title, widget: string, required: false}
               - {label: Show this section, name: visible, widget: boolean, default: true, required: false}
+              - {label: Desktop top spacing override (px, optional), name: desktop_spacing, widget: number, value_type: int, min: 0, max: 200, required: false}
+              - {label: Mobile top spacing override (px, optional), name: mobile_spacing, widget: number, value_type: int, min: 0, max: 160, required: false}
               - label: Fonts
             name: fonts
             widget: object
@@ -38,6 +40,19 @@ collections:
               - {label: "Main text font, other: type any Google Fonts name or the name of an uploaded font (beats the choice above)", name: body_other, widget: string, required: false}
               - {label: Headings and name font (empty = Li Subha Letterpress), name: headings, widget: select, options: ["Li Subha Letterpress", "Fraunces", "Hanken Grotesk", "Special Elite", "Courier Prime", "Playfair Display", "Merriweather", "Inter", "Noto Serif Bengali", "Noto Sans Bengali"], required: false}
               - {label: "Headings font, other: type any Google Fonts name or the name of an uploaded font (beats the choice above)", name: headings_other, widget: string, required: false}
+          - label: Typography and spacing
+            name: typography
+            widget: object
+            required: false
+            fields:
+              - {label: Desktop body font size (px), name: body_size, widget: number, value_type: int, min: 12, max: 24, required: false}
+              - {label: Mobile body font size (px), name: mobile_body_size, widget: number, value_type: int, min: 12, max: 22, required: false}
+              - {label: Body font weight, name: body_weight, widget: select, options: [300, 400, 500, 600, 700], required: false}
+              - {label: Line height, name: line_height, widget: number, value_type: float, min: 1.2, max: 2.2, step: 0.05, required: false}
+              - {label: Heading size (px), name: heading_size, widget: number, value_type: int, min: 28, max: 72, required: false}
+              - {label: Heading font weight, name: heading_weight, widget: select, options: [500, 600, 700, 800, 900], required: false}
+              - {label: Desktop section top spacing (px), name: section_spacing, widget: number, value_type: int, min: 24, max: 180, required: false}
+              - {label: Mobile section top spacing (px), name: mobile_section_spacing, widget: number, value_type: int, min: 20, max: 120, required: false}
           - label: Uploaded fonts (add your own font files here)
             name: custom_fonts
             widget: list
