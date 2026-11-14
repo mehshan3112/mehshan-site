@@ -88,6 +88,37 @@ def training_projects():
             prows += f'<article class="project-item">{f("<h3>"+p["title"]+"</h3>") if p.get("title") else ""}{f("<p>"+p["text"]+"</p>") if p.get("text") else ""}</article>'
     return f'<section id="training-projects"><div class="tp-grid"><div><h2>Training</h2><ul class="training-list">{trows}</ul></div><div><h2>Project Work</h2>{prows}</div></div></section>'
 
+def design():
+    d = c["designs"]; it = d["items"]; n = len(it)
+    lst = "".join(f'<li><button type="button" data-i="{i}"><span class="n">#{i+1:04d}/{n}</span><span class="t">{f(x["title"])}</span><span class="k">{f(x["kind"])}</span></button></li>' for i, x in enumerate(it))
+    figs = "".join(f'<figure><button type="button" data-l="{e(x["link"])}" data-t="{e(x["title"])}"><img src="{img(x["image"])}" alt="{e(x["title"])} {e(x["kind"]).lower()} by Mehshan" loading="lazy"></button><figcaption><b>{e(x["title"])}</b><span>{e(x["kind"])}</span></figcaption></figure>' for x in it)
+    return (f'<section id="design"><h2 style="letter-spacing:.3em">Design</h2><p class="sub" style="max-width:46em;margin-top:0">{f(d["intro"])}</p>'
+            f'<ol class="wl">{lst}</ol><div id="pv" aria-hidden="true"><img alt=""></div>'
+            f'<p class="sub" style="margin:56px 0 18px">All pieces, in one strip. Scroll sideways.</p><div class="strip">{figs}</div>'
+            f'<p style="margin-top:12px"><a class="btn" href="{e(d["behance"])}">Full portfolio on Behance</a></p></section>')
+
+
+def training_projects():
+    training = c.get("training_details", [])
+    if not training:
+        training = [{"title": item} for item in c.get("training", [])]
+    trows = ""
+    for x in training:
+        title = f(x.get("title", ""))
+        provider = f(x.get("provider", ""))
+        date = f(x.get("date", ""))
+        meta = " · ".join(v for v in [provider, date] if v)
+        cert = f'<span class="cert-preview"><img src="{img(x["certificate"])}" alt="{e(x.get("title") or "Certificate")}"></span>' if x.get("certificate") else ""
+        link = f'<p><a href="{e(x["link"])}">{f(x.get("link_text") or "View details")}</a></p>' if x.get("link") else ""
+        if title or meta or cert or link:
+            trows += f'<li class="training-item">{cert}<div><b>{title}</b>{f("<small>"+meta+"</small>") if meta else ""}{link}</div></li>'
+    projects = c.get("project_work") or ([c.get("project", {})] if c.get("project") else [])
+    prows = ""
+    for p in projects:
+        if p.get("title") or p.get("text"):
+            prows += f'<article class="project-item">{f("<h3>"+p["title"]+"</h3>") if p.get("title") else ""}{f("<p>"+p["text"]+"</p>") if p.get("text") else ""}</article>'
+    return f'<section id="training-projects"><div class="tp-grid"><div><h2>Training</h2><ul class="training-list">{trows}</ul></div><div><h2>Project Work</h2>{prows}</div></div></section>'
+
 def build_section_layout(parts):
     labels = {'me': 'About', 'about': 'Experience', 'education': 'Education', 'activities': 'Leadership', 'skills': 'Skills', 'training-projects': 'Training & Project Work', 'design': 'Design'}
     registry = c.get('sections')
