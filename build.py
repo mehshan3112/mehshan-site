@@ -82,6 +82,32 @@ def design():
             f'<p style="margin-top:12px"><a class="btn" href="{e(d["behance"])}">Full portfolio on Behance</a></p></section>')
 
 
+def build_section_layout(parts):
+    labels = {'me': 'About', 'about': 'Experience', 'education': 'Education', 'activities': 'Leadership', 'skills': 'Skills and training', 'design': 'Design'}
+    settings = {x.get('id'): x for x in c.get('section_settings', [])}
+    order = c.get('section_order') or ['me', 'about', 'education', 'activities', 'skills', 'design']
+    output, nav = [], []
+    for sid in order:
+        item = settings.get(sid, {})
+        if sid in parts and item.get('visible', True) and parts[sid]:
+            output.append(parts[sid])
+            nav.append('<a href="#' + e(sid) + '">' + e(item.get('title') or labels.get(sid, sid.title())) + '</a>')
+    for section in c.get('custom_sections', []):
+        sid = re.sub(r'[^a-z0-9-]+', '-', str(section.get('id', 'custom')).lower()).strip('-') or 'custom'
+        if not section.get('visible', True): continue
+        body = ''
+        for block in section.get('blocks', []):
+            kind = block.get('type', 'text')
+            if kind == 'heading' and block.get('heading'): body += '<h3>' + f(block['heading']) + '</h3>'
+            elif kind == 'text' and block.get('text'): body += '<p>' + f(block['text']) + '</p>'
+            elif kind == 'image' and block.get('image'): body += '<figure><img src="' + img(block['image']) + '" alt="' + e(block.get('alt', '')) + '">' + ('<figcaption>' + f(block.get('caption', '')) + '</figcaption>' if block.get('caption') else '') + '</figure>'
+            elif kind == 'list' and block.get('items'): body += '<ul>' + ''.join('<li>' + f(v) + '</li>' for v in block['items'] if v) + '</ul>'
+            elif kind == 'link' and block.get('url'): body += '<p><a href="' + e(block['url']) + '">' + f(block.get('label') or block['url']) + '</a></p>'
+        if body:
+            output.append('<section id="' + e(sid) + '"><h2>' + f(section.get('title') or 'Section') + '</h2>' + body + '</section>')
+            nav.append('<a href="#' + e(sid) + '">' + e(section.get('title') or 'Section') + '</a>')
+    return '<div class="st"></div>'.join(output), ''.join(nav)
+
 # ---------------- fonts ----------------
 FONT_EXT = (".ttf", ".otf", ".woff", ".woff2")
 CUSTOM = {x["name"].strip().lower(): x["file"] for x in c.get("custom_fonts", []) if x.get("name") and x.get("file")}
@@ -120,8 +146,9 @@ credit = f'<p class="fc">{f(c["font_credit"])}</p>' if c.get("font_credit") else
 h, ct = c["hero"], c["contact"]
 links = "".join(f'<a href="{e(ct[k])}">{n}</a>' for k, n in [("linkedin","LinkedIn"),("behance","Behance"),("facebook","Facebook")])
 page = open(find("template.html"), encoding="utf-8").read()
+sections_html, nav_html = build_section_layout({'me': me(), 'about': exp(), 'education': edu(), 'activities': act(), 'skills': skills(), 'design': design()})
 for k, v in {"H1": f(h["title"]) if "{" in h["title"] else " ".join(f'<span class="nw">{e(w)}</span>' for w in h["title"].split()), "SUB": f(h["subtitle"]), "INTRO": f(h["intro"]), "HERO_IMG": img(h["image"]), "HERO_ALT": e(h["image_alt"]),
-             "ME": me(), "ACT": act(), "SITE_URL": e(c.get("site_url", "").rstrip("/")), "EXP": exp(), "EDU": edu(), "SKILLS": skills(), "DESIGN": design(), "EMAIL": e(ct["email"]), "LINKS": links,
+             "NAV": nav_html, "SECTIONS": sections_html, "SITE_URL": e(c.get("site_url", "").rstrip("/")), "EMAIL": e(ct["email"]), "LINKS": links,
              "FONTS": fonts_html, "CREDIT": credit, "QUOTE": f'“{f(ct["quote"])}”<span>{f(ct["quote_author"])}</span>'}.items():
     page = page.replace(f"[[{k}]]", v)
 out = R/"dist"
