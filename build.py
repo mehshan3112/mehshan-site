@@ -93,19 +93,17 @@ def design():
 
 def training_projects():
     training = c.get("training_details", [])
-    if not training:
-        training = [{"title": item} for item in c.get("training", [])]
     trows = ""
     for x in training:
         title = f(x.get("title", ""))
         provider = f(x.get("provider", ""))
         date = f(x.get("date", ""))
         meta = " · ".join(v for v in [provider, date] if v)
-        cert = f'<span class="cert-preview"><img src="{img(x["certificate"])}" alt="{e(x.get("title") or "Certificate")}"></span>' if x.get("certificate") else ""
+        cert_attr = ' data-cert="' + img(x["certificate"]) + '"' if x.get("certificate") else ""
         link = f'<p><a href="{e(x["link"])}">{f(x.get("link_text") or "View details")}</a></p>' if x.get("link") else ""
-        if title or meta or cert or link:
-            trows += f'<li class="training-item">{cert}<div><b>{title}</b>{f("<small>"+meta+"</small>") if meta else ""}{link}</div></li>'
-    projects = c.get("project_work") or ([c.get("project", {})] if c.get("project") else [])
+        if title or meta or link:
+            trows += f'<li class="training-item"{cert_attr} tabindex="0"><div><b>{title}</b>{f("<small>"+meta+"</small>") if meta else ""}{link}</div></li>'
+    projects = c.get("project_work", [])
     prows = ""
     for p in projects:
         if p.get("title") or p.get("text"):
@@ -113,8 +111,7 @@ def training_projects():
     return f'<section id="training-projects"><div class="tp-grid"><div><h2>Training</h2><ul class="training-list">{trows}</ul></div><div><h2>Project Work</h2>{prows}</div></div></section>'
 
 def build_section_layout(parts):
-    labels = {'me': 'About', 'about': 'Experience', 'education': 'Education', 'activities': 'Leadership', 'skills': 'Skills', 'training-projects': 'Training & Projects', 'design': 'Design'}
-    settings = {x.get('id'): x for x in c.get('section_settings', [])}
+    labels = {'me': 'About', 'about': 'Experience', 'education': 'Education', 'activities': 'Leadership', 'skills': 'Skills', 'training-projects': 'Training & Project Work', 'design': 'Design'}
     for section in c.get('custom_sections', []):
         sid = re.sub(r'[^a-z0-9-]+', '-', str(section.get('id', 'custom')).lower()).strip('-') or 'custom'
         labels[sid] = section.get('title') or 'Section'
@@ -130,18 +127,26 @@ def build_section_layout(parts):
             elif kind == 'image' and block.get('image'):
                 body += '<figure><img src="' + img(block['image']) + '" alt="' + e(block.get('alt', '')) + '">' + ('<figcaption>' + f(block.get('caption', '')) + '</figcaption>' if block.get('caption') else '') + '</figure>'
             elif kind == 'gallery' and block.get('images'):
-                body += '<div class="custom-gallery">' + ''.join('<figure><img src="' + img(p['image']) + '" alt="' + e(p.get('alt', '')) + '">' + ('<figcaption>' + f(p.get('caption', '')) + '</figcaption>' if p.get('caption') else '') + '</figure>' for p in block['images'] if p.get('image')) + '</div>'
+                body += '<div class="custom-gallery">' + ''.join('<figure><img src="' + img(p['image']) + '" alt="' + e(p.get('alt', '')) + '">' + ('<figcaption>' + f(p.get('caption', '')) + '</figcaption>' if p.get('caption') else '') + '</figure>' for p in block['images'] if p.get('image'))
             elif kind == 'list' and block.get('items'):
                 body += '<ul>' + ''.join('<li>' + f(v) + '</li>' for v in block['items'] if v) + '</ul>'
             elif kind == 'link' and block.get('url'):
                 body += '<p><a href="' + e(block['url']) + '">' + f(block.get('label') or block['url']) + '</a></p>'
         if body:
             parts[sid] = '<section id="' + e(sid) + '"><h2>' + f(section.get('title') or 'Section') + '</h2>' + body + '</section>'
-    order = c.get('section_order') or ['me', 'about', 'education', 'activities', 'skills', 'training-projects', 'design']
-    order = list(order) + [sid for sid in parts if sid not in order]
+
+    # Backward compatibility for existing site.json files not yet migrated.
+    legacy_settings = {x.get('id'): x for x in c.get('section_settings', [])}
+    registry = c.get('sections')
+    if not registry:
+        old_order = c.get('section_order') or ['me', 'about', 'education', 'activities', 'skills', 'training-projects', 'design']
+        registry = [{'id': sid, **legacy_settings.get(sid, {})} for sid in old_order]
+    ordered_ids = [x.get('id') if isinstance(x, dict) else x for x in registry]
+    ordered_ids += [sid for sid in parts if sid not in ordered_ids]
+    registry_by_id = {x.get('id'): x for x in registry if isinstance(x, dict)}
     output, nav = [], []
-    for sid in order:
-        item = settings.get(sid, {})
+    for sid in ordered_ids:
+        item = registry_by_id.get(sid, legacy_settings.get(sid, {}))
         if sid in parts and item.get('visible', True) and parts[sid]:
             output.append(parts[sid])
             nav.append('<a href="#' + e(sid) + '">' + e(item.get('title') or labels.get(sid, sid.title())) + '</a>')
