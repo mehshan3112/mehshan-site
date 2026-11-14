@@ -156,7 +156,17 @@ def build_section_layout(parts):
     for sid in ordered_ids:
         item = registry_by_id.get(sid, settings.get(sid, {}))
         if sid in parts and item.get('visible', True) and parts[sid]:
-            output.append(parts[sid])
+            section_html = parts[sid]
+            style_bits = []
+            if item.get('desktop_spacing') is not None:
+                try: style_bits.append('--section-space:' + str(max(0, min(200, float(item['desktop_spacing'])))) + 'px')
+                except (TypeError, ValueError): pass
+            if item.get('mobile_spacing') is not None:
+                try: style_bits.append('--mobile-section-space:' + str(max(0, min(160, float(item['mobile_spacing'])))) + 'px')
+                except (TypeError, ValueError): pass
+            if style_bits:
+                section_html = re.sub(r'<section(\\s)', '<section style="' + ';'.join(style_bits) + '"\\1', section_html, count=1)
+            output.append(section_html)
             nav.append('<a href="#' + e(sid) + '">' + e(item.get('title') or labels.get(sid, sid.title())) + '</a>')
     return '<div class="st"></div>'.join(output), ''.join(nav)
 
@@ -192,7 +202,18 @@ for name in sorted(used):
     elif k != "noto sans bengali":
         fam = GOOGLE.get(k, name.replace(" ", "+"))
         links.append('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=%s&display=swap">' % fam)
-fonts_html = "\n".join(links) + "\n<style>" + faces + ":root{--fb:'%s','Noto Sans Bengali',system-ui,sans-serif;--fh:'%s','Noto Sans Bengali',Georgia,serif}body{font-synthesis:none}</style>" % (body_font, head_font)
+ty = c.get("typography") or {}
+def tnum(key, default, lo, hi, integer=False):
+    try: value = float(ty.get(key, default))
+    except (TypeError, ValueError): value = default
+    value = max(lo, min(hi, value))
+    return str(int(value)) if integer else str(value)
+typography_css = ":root{--body-size:%spx;--mobile-body-size:%spx;--body-weight:%s;--line-height:%s;--heading-size:%spx;--heading-weight:%s;--section-space:%spx;--mobile-section-space:%spx}" % (
+    tnum("body_size",17,12,24,True), tnum("mobile_body_size",17,12,22,True),
+    tnum("body_weight",400,300,700,True), tnum("line_height",1.65,1.2,2.2),
+    tnum("heading_size",64,28,72,True), tnum("heading_weight",900,500,900,True),
+    tnum("section_spacing",84,24,180,True), tnum("mobile_section_spacing",60,20,120,True))
+fonts_html = "\n".join(links) + "\n<style>" + faces + ":root{--fb:'%s','Noto Sans Bengali',system-ui,sans-serif;--fh:'%s','Noto Sans Bengali',Georgia,serif}body{font-synthesis:none}" % (body_font, head_font) + typography_css + "</style>"
 credit = f'<p class="fc">{f(c["font_credit"])}</p>' if c.get("font_credit") else ""
 
 h, ct = c["hero"], c["contact"]
